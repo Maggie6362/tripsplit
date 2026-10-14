@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#f2f2f7">
+  <title>TripSplit 旅帳通 - 旅行記帳與分攤助手</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons for iOS look -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Chart.js for sleek expense breakdown -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            iosBg: '#F2F2F7',
+            iosCard: '#FFFFFF',
+            iosBlue: '#007AFF',
+            iosIndigo: '#5856D6',
+            iosGreen: '#34C759',
+            iosOrange: '#FF9500',
+            iosRed: '#FF3B30',
+            iosGray: '#8E8E93',
+            iosLightGray: '#E5E5EA',
+          },
+          boxShadow: {
+            'ios-sm': '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.03)',
+            'ios': '0 8px 24px -4px rgba(0, 0, 0, 0.07), 0 4px 12px -2px rgba(0, 0, 0, 0.04)',
+            'ios-float': '0 12px 32px rgba(0, 122, 255, 0.28)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* iOS native touch feel and scroll tweaks */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    input, textarea, select {
+      user-select: auto;
+      -webkit-user-select: auto;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+      background-color: #F2F2F7;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    }
+    .safe-bottom {
+      padding-bottom: max(env(safe-area-inset-bottom, 16px), 16px);
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    /* Hide scrollbars but allow scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Button press ripple/scale simulation */
+    .btn-press:active {
+      transform: scale(0.96);
+      transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .category-radio:checked + label {
+      border-color: #007AFF;
+      background-color: #EFF6FF;
+      color: #007AFF;
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-100">
+
+  <!-- iOS Top Sticky Navigation -->
+  <header class="sticky top-0 z-30 glassmorphism border-b border-black/5 px-4 py-3">
+    <div class="max-w-md mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-iosBlue to-blue-400 flex items-center justify-center text-white shadow-sm">
+          <i class="ph ph-airplane-tilt text-lg font-bold"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold tracking-tight text-slate-900 leading-none">TripSplit</h1>
+          <span class="text-[10px] text-slate-400 font-medium">旅帳通 • 行動分攤</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <!-- Currency Dropdown -->
+        <select id="currencySelect" onchange="changeCurrency(this.value)" class="text-xs font-semibold bg-slate-100 border-0 rounded-full px-2.5 py-1.5 text-slate-700 focus:ring-2 focus:ring-iosBlue focus:outline-none">
+          <option value="NT$">NT$ (TWD)</option>
+          <option value="¥">¥ (JPY)</option>
+          <option value="$">$ (USD)</option>
+          <option value="€">€ (EUR)</option>
+          <option value="₩">₩ (KRW)</option>
+          <option value="HK$">HK$ (HKD)</option>
+          <option value="THB">฿ (THB)</option>
+        </select>
+
+        <!-- Quick Share / Report Button -->
+        <button onclick="openShareModal()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 btn-press active:bg-slate-200" title="匯出分帳報告">
+          <i class="ph ph-share-network text-lg"></i>
+        </button>
+
+        <!-- Reset Button -->
+        <button onclick="confirmResetAll()" class="w-8 h-8 rounded-full bg-red-50 text-iosRed flex items-center justify-center btn-press active:bg-red-100" title="重置全部資料">
+          <i class="ph ph-arrow-counter-clockwise text-lg"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-md mx-auto px-4 pt-3 space-y-4">
+
+    <!-- 1. Dashboard Card: Total & Split Amount -->
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-5 shadow-ios relative overflow-hidden">
+      <!-- Ambient Lighting Bubble -->
+      <div class="absolute -right-8 -top-8 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -left-10 -bottom-10 w-36 h-36 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-4">
+        <!-- Total Expense Display -->
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="flex items-center space-x-1.5 text-slate-400 text-xs font-medium mb-1">
+              <span>旅程總消費支出</span>
+              <span id="expenseCountBadge" class="bg-white/10 px-1.5 py-0.5 rounded text-[10px] text-blue-200">0 筆</span>
+            </div>
+            <div class="text-3xl font-extrabold tracking-tight flex items-baseline">
+              <span id="currencyPrefix" class="text-lg text-slate-400 mr-1.5 font-semibold">NT$</span>
+              <span id="totalAmountText" class="tracking-tight">0</span>
+            </div>
+          </div>
+          
+          <!-- Rounding Method Selector -->
+          <div class="text-right">
+            <span class="text-[10px] text-slate-400 block mb-1">計算取整模式</span>
+            <select id="roundingMode" onchange="updateDashboard()" class="text-xs font-medium bg-white/10 border border-white/10 rounded-xl px-2 py-1 text-slate-200 focus:outline-none">
+              <option value="round" class="text-black">四捨五入</option>
+              <option value="ceil" class="text-black">無條件進位 (整數)</option>
+              <option value="floor" class="text-black">無條件捨去</option>
+              <option value="exact" class="text-black">精準 (一位小數)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="h-px bg-white/10 w-full my-2"></div>
+
+        <!-- Split calculation per person -->
+        <div class="flex items-center justify-between pt-1">
+          <div>
+            <span class="text-xs text-blue-300 font-medium flex items-center gap-1">
+              <i class="ph ph-users-three"></i> 每人應付 (分攤額)
+            </span>
+            <div class="text-2xl font-bold text-white tracking-tight flex items-baseline mt-0.5">
+              <span id="currencyPrefixSplit" class="text-sm text-slate-400 mr-1">NT$</span>
+              <span id="perPersonAmountText" class="text-emerald-400 font-extrabold">0</span>
+            </div>
+          </div>
+
+          <!-- People Counter Controller -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-1.5 flex items-center space-x-2 border border-white/10">
+            <button onclick="modifyPeopleCount(-1)" class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white active:bg-white/20 btn-press font-bold">
+              <i class="ph ph-minus text-sm"></i>
+            </button>
+            <div class="text-center min-w-[42px]">
+              <span id="peopleCountDisplay" class="text-base font-bold text-white block leading-tight">2</span>
+              <span class="text-[9px] text-slate-300">旅客人數</span>
+            </div>
+            <button onclick="modifyPeopleCount(1)" class="w-8 h-8 rounded-xl bg-iosBlue flex items-center justify-center text-white active:bg-blue-600 btn-press font-bold">
+              <i class="ph ph-plus text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Quick Input Section (Card) -->
+    <section class="bg-iosCard rounded-3xl p-4 shadow-ios-sm border border-black/[0.04]">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <i class="ph ph-plus-circle text-iosBlue text-base"></i> 快速新增支出
+        </h2>
+        <span class="text-[11px] text-slate-400">填寫後點擊儲存</span>
+      </div>
+
+      <form id="expenseForm" onsubmit="handleAddExpense(event)" class="space-y-3">
+        <!-- Title & Amount in Grid -->
+        <div class="grid grid-cols-5 gap-2">
+          <div class="col-span-3">
+            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">項目名稱</label>
+            <input type="text" id="itemName" placeholder="例如：一蘭拉麵、新幹線" required
+              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl px-3 py-2.5 focus:bg-white focus:border-iosBlue focus:ring-1 focus:ring-iosBlue focus:outline-none transition-all placeholder:text-slate-400">
+          </div>
+          <div class="col-span-2">
+            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">金額</label>
+            <input type="number" id="itemAmount" step="any" min="0" placeholder="0" required inputmode="decimal"
+              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm font-bold rounded-2xl px-3 py-2.5 focus:bg-white focus:border-iosBlue focus:ring-1 focus:ring-iosBlue focus:outline-none transition-all placeholder:text-slate-400">
+          </div>
+        </div>
+
+        <!-- Category Grid (6 Pills) -->
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-500 mb-1.5 ml-1">類別標籤</label>
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <input type="radio" name="expenseCat" id="cat-food" value="food" class="hidden category-radio" checked>
+              <label for="cat-food" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>🍜</span><span>餐飲</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="expenseCat" id="cat-transport" value="transport" class="hidden category-radio">
+              <label for="cat-transport" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>🚅</span><span>交通</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="expenseCat" id="cat-stay" value="stay" class="hidden category-radio">
+              <label for="cat-stay" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>🏨</span><span>住宿</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="expenseCat" id="cat-play" value="play" class="hidden category-radio">
+              <label for="cat-play" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>🎟️</span><span>娛樂</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="expenseCat" id="cat-shopping" value="shopping" class="hidden category-radio">
+              <label for="cat-shopping" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>🛍️</span><span>購物</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="expenseCat" id="cat-other" value="other" class="hidden category-radio">
+              <label for="cat-other" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
+                <span>💡</span><span>其他</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payer & Date & Memo -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">付款人</label>
+            <input type="text" id="itemPayer" placeholder="公費 / 我 / 姓名" list="payerPresets"
+              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl px-3 py-2 focus:bg-white focus:border-iosBlue focus:outline-none">
+            <datalist id="payerPresets">
+              <option value="公費錢包"></option>
+              <option value="我 (先代墊)"></option>
+              <option value="旅伴A"></option>
+              <option value="旅伴B"></option>
+            </datalist>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">日期</label>
+            <input type="date" id="itemDate" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl px-2.5 py-2 focus:bg-white focus:border-iosBlue focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="itemNote" placeholder="備註說明（選填，如：含稅、使用信用卡）"
+            class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 focus:bg-white focus:border-iosBlue focus:outline-none placeholder:text-slate-400">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-iosBlue hover:bg-blue-600 active:scale-[0.98] transition text-white font-semibold py-3 rounded-2xl shadow-ios-float flex items-center justify-center space-x-2 mt-1">
+          <i class="ph ph-check-bold text-base"></i>
+          <span class="text-sm tracking-wide">記下一筆支出</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- 3. Expenses Chart Breakdown (Collapsible & Compact) -->
+    <section class="bg-iosCard rounded-3xl p-4 shadow-ios-sm border border-black/[0.04]">
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+          <i class="ph ph-chart-pie-slice text-indigo-500 text-base"></i> 分類支出分佈
+        </h3>
+        <span id="chartTotalLabel" class="text-[11px] font-semibold text-slate-500"></span>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="flex items-center justify-between py-1">
+        <div class="w-32 h-32 relative flex items-center justify-center mx-auto sm:mx-0">
+          <canvas id="categoryChart"></canvas>
+          <div id="chartCenterText" class="absolute text-center pointer-events-none">
+            <span class="text-[10px] text-slate-400 block">最高</span>
+            <span id="topCategoryEmoji" class="text-sm font-bold">🍜</span>
+          </div>
+        </div>
+
+        <!-- Category Progress Bars -->
+        <div id="categoryBreakdownBars" class="flex-1 pl-4 space-y-1.5 text-xs">
+          <!-- Dynamically inserted -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Expense List with Category Filter -->
+    <section class="space-y-2.5 pb-6">
+      <div class="flex items-center justify-between px-1">
+        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <i class="ph ph-receipt text-iosOrange text-base"></i> 支出明細列表
+        </h3>
+        <span id="listSummaryText" class="text-xs text-slate-400">共 0 筆</span>
+      </div>
+
+      <!-- Filter Filter Pills (Horizontal Scroll) -->
+      <div class="flex items-center space-x-1.5 overflow-x-auto no-scrollbar py-1">
+        <button onclick="setFilter('all')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-iosBlue text-white shadow-sm" data-cat="all">全部</button>
+        <button onclick="setFilter('food')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="food">🍜 餐飲</button>
+        <button onclick="setFilter('transport')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="transport">🚅 交通</button>
+        <button onclick="setFilter('stay')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="stay">🏨 住宿</button>
+        <button onclick="setFilter('play')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="play">🎟️ 娛樂</button>
+        <button onclick="setFilter('shopping')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="shopping">🛍️ 購物</button>
+        <button onclick="setFilter('other')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="other">💡 其他</button>
+      </div>
+
+      <!-- List Items Container -->
+      <div id="expenseListContainer" class="space-y-2">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Share / LINE Report Modal -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+    <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl space-y-4 safe-bottom">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center space-x-2">
+          <div class="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+            <i class="ph ph-chat-circle-dots text-lg"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">分帳結算報告 (LINE / 旅伴分享)</h3>
+        </div>
+        <button onclick="closeShareModal()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500">已為您將目前所有支出清單與分攤結果整理成文字格式，點擊下方即可直接複製分享！</p>
+
+      <textarea id="shareTextarea" readonly class="w-full h-44 bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-700 focus:outline-none"></textarea>
+
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button onclick="copyShareText()" id="copyReportBtn" class="bg-emerald-600 text-white font-medium py-2.5 rounded-xl text-xs flex items-center justify-center space-x-1.5 btn-press shadow-md">
+          <i class="ph ph-copy"></i>
+          <span>一鍵複製報告</span>
+        </button>
+        <button onclick="closeShareModal()" class="bg-slate-100 text-slate-700 font-medium py-2.5 rounded-xl text-xs btn-press">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification (iOS Notification Banner Style) -->
+  <div id="toastNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none w-11/12 max-w-sm">
+    <div class="bg-slate-900/90 backdrop-blur-md text-white text-xs font-semibold py-2.5 px-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-center border border-white/10">
+      <i id="toastIcon" class="ph ph-check-circle text-emerald-400 text-base"></i>
+      <span id="toastMessage">已成功新增！</span>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal (Native-styled alert dialog) -->
+  <div id="deleteModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-6">
+    <div class="bg-white w-full max-w-xs rounded-2xl p-5 shadow-2xl text-center space-y-3">
+      <div class="w-12 h-12 bg-red-100 text-iosRed rounded-full mx-auto flex items-center justify-center text-xl">
+        <i class="ph ph-trash"></i>
+      </div>
+      <h4 class="text-base font-bold text-slate-800">確定刪除此筆支出？</h4>
+      <p id="deleteItemDescription" class="text-xs text-slate-500">刪除後總額與每人分攤金額將即時重算。</p>
+      <div class="flex space-x-2 pt-2">
+        <button onclick="closeDeleteModal()" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium btn-press">取消</button>
+        <button id="confirmDeleteBtn" class="flex-1 py-2 rounded-xl bg-iosRed text-white text-xs font-medium btn-press">確認刪除</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Category configuration map */
+    const CATEGORIES = {
+      food: { name: '餐飲', emoji: '🍜', color: '#FF9500', bg: 'bg-orange-50', text: 'text-orange-600' },
+      transport: { name: '交通', emoji: '🚅', color: '#007AFF', bg: 'bg-blue-50', text: 'text-blue-600' },
+      stay: { name: '住宿', emoji: '🏨', color: '#5856D6', bg: 'bg-indigo-50', text: 'text-indigo-600' },
+      play: { name: '娛樂', emoji: '🎟️', color: '#AF52DE', bg: 'bg-purple-50', text: 'text-purple-600' },
+      shopping: { name: '購物', emoji: '🛍️', color: '#FF2D55', bg: 'bg-pink-50', text: 'text-pink-600' },
+      other: { name: '其他', emoji: '💡', color: '#8E8E93', bg: 'bg-slate-100', text: 'text-slate-600' }
+    };
+
+    /* App State Management */
+    let expenses = [];
+    let peopleCount = 2;
+    let currentCurrency = 'NT$';
+    let currentFilter = 'all';
+    let itemPendingDeleteId = null;
+    let chartInstance = null;
+
+    // Load initial data from localStorage
+    function initData() {
+      try {
+        const storedExpenses = localStorage.getItem('tripsplit_expenses');
+        if (storedExpenses) {
+          expenses = JSON.parse(storedExpenses);
+        } else {
+          // Preload friendly sample demo data for new users
+          expenses = [
+            { id: '1', title: '一蘭拉麵新宿店', amount: 3200, category: 'food', payer: '公費錢包', date: getTodayDateString(), note: '包含加麵與溫泉蛋' },
+            { id: '2', title: '成田特快 N\'EX 車票', amount: 8140, category: 'transport', payer: '我 (代墊)', date: getTodayDateString(), note: '往返套票 2 人' },
+            { id: '3', title: '銀座飯店第一晚訂金', amount: 15600, category: 'stay', payer: '公費錢包', date: getTodayDateString(), note: '雙人房' }
+          ];
+        }
+
+        const storedPeople = localStorage.getItem('tripsplit_people');
+        if (storedPeople) peopleCount = parseInt(storedPeople) || 2;
+
+        const storedCurrency = localStorage.getItem('tripsplit_currency');
+        if (storedCurrency) currentCurrency = storedCurrency;
+
+        const storedRound = localStorage.getItem('tripsplit_rounding');
+        if (storedRound) {
+          document.getElementById('roundingMode').value = storedRound;
+        }
+
+        // Set inputs
+        document.getElementById('currencySelect').value = currentCurrency;
+        document.getElementById('itemDate').value = getTodayDateString();
+      } catch (e) {
+        console.error('Failed to load localStorage', e);
+      }
+
+      renderAll();
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem('tripsplit_expenses', JSON.stringify(expenses));
+        localStorage.setItem('tripsplit_people', peopleCount.toString());
+        localStorage.setItem('tripsplit_currency', currentCurrency);
+        localStorage.setItem('tripsplit_rounding', document.getElementById('roundingMode').value);
+      } catch (e) {
+        console.error('Failed to save to localStorage', e);
+      }
+    }
+
+    function getTodayDateString() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    // Number formatting with comma
+    function formatNumber(num) {
+      if (isNaN(num)) return '0';
+      return Number(num).toLocaleString('zh-TW', { maximumFractionDigits: 1 });
+    }
+
+    // Update people count
+    function modifyPeopleCount(delta) {
+      const newCount = peopleCount + delta;
+      if (newCount < 1) return;
+      peopleCount = newCount;
+      document.getElementById('peopleCountDisplay').innerText = peopleCount;
+      saveData();
+      updateDashboard();
+      showToast(`旅客人數已調整為 ${peopleCount} 人`, 'ph-users-three');
+    }
+
+    // Currency Switcher
+    function changeCurrency(newCurr) {
+      currentCurrency = newCurr;
+      document.getElementById('currencyPrefix').innerText = currentCurrency;
+      document.getElementById('currencyPrefixSplit').innerText = currentCurrency;
+      saveData();
+      renderAll();
+      showToast(`已切換幣別為 ${currentCurrency}`, 'ph-currency-circle-dollar');
+    }
+
+    // Add new Expense
+    function handleAddExpense(event) {
+      event.preventDefault();
+
+      const titleInput = document.getElementById('itemName');
+      const amountInput = document.getElementById('itemAmount');
+      const payerInput = document.getElementById('itemPayer');
+      const dateInput = document.getElementById('itemDate');
+      const noteInput = document.getElementById('itemNote');
+      const checkedCat = document.querySelector('input[name="expenseCat"]:checked');
+
+      const title = titleInput.value.trim();
+      const amount = parseFloat(amountInput.value);
+      const category = checkedCat ? checkedCat.value : 'food';
+      const payer = payerInput.value.trim() || '公費錢包';
+      const date = dateInput.value || getTodayDateString();
+      const note = noteInput.value.trim();
+
+      if (!title || isNaN(amount) || amount <= 0) {
+        showToast('請輸入有效項目名稱與金額！', 'ph-warning', true);
+        return;
+      }
+
+      const newExpense = {
+        id: Date.now().toString(),
+        title,
+        amount,
+        category,
+        payer,
+        date,
+        note
+      };
+
+      // Add to front of array
+      expenses.unshift(newExpense);
+      saveData();
+
+      // Reset fields
+      titleInput.value = '';
+      amountInput.value = '';
+      noteInput.value = '';
+      titleInput.blur();
+      amountInput.blur();
+
+      renderAll();
+      showToast(`已記下「${title}」${currentCurrency} ${formatNumber(amount)}`, 'ph-check-circle');
+    }
+
+    // Calculation & Dashboard
+    function updateDashboard() {
+      const total = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+      const count = expenses.length;
+
+      document.getElementById('totalAmountText').innerText = formatNumber(total);
+      document.getElementById('expenseCountBadge').innerText = `${count} 筆`;
+      document.getElementById('currencyPrefix').innerText = currentCurrency;
+      document.getElementById('currencyPrefixSplit').innerText = currentCurrency;
+      document.getElementById('peopleCountDisplay').innerText = peopleCount;
+
+      // Split calculation with rounding
+      const mode = document.getElementById('roundingMode').value;
+      let perPerson = 0;
+      if (peopleCount > 0 && total > 0) {
+        const raw = total / peopleCount;
+        if (mode === 'round') {
+          perPerson = Math.round(raw);
+        } else if (mode === 'ceil') {
+          perPerson = Math.ceil(raw);
+        } else if (mode === 'floor') {
+          perPerson = Math.floor(raw);
+        } else {
+          // exact
+          perPerson = Math.round(raw * 10) / 10;
+        }
+      }
+
+      document.getElementById('perPersonAmountText').innerText = formatNumber(perPerson);
+      saveData();
+    }
+
+    // Filter Expense List
+    function setFilter(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = 'filter-btn text-xs font-semibold px-3 py-1.5 rounded-full transition whitespace-nowrap bg-iosBlue text-white shadow-sm';
+        } else {
+          btn.className = 'filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200';
+        }
+      });
+      renderExpenseList();
+    }
+
+    // Render Expense List
+    function renderExpenseList() {
+      const listContainer = document.getElementById('expenseListContainer');
+      const filtered = expenses.filter(item => {
+        if (currentFilter === 'all') return true;
+        return item.category === currentFilter;
+      });
+
+      document.getElementById('listSummaryText').innerText = `共 ${filtered.length} 筆`;
+
+      if (filtered.length === 0) {
+        listContainer.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 text-center text-slate-400 border border-dashed border-slate-200">
+            <i class="ph ph-receipt-x text-3xl mb-1 text-slate-300"></i>
+            <p class="text-xs">尚無相關支出記錄</p>
+            <span class="text-[10px] text-slate-400">上方表單輸入後即可開始記帳！</span>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(item => {
+        const catInfo = CATEGORIES[item.category] || CATEGORIES.other;
+        html += `
+          <div class="bg-iosCard rounded-2xl p-3.5 shadow-ios-sm border border-black/[0.03] flex items-center justify-between transition hover:shadow-md">
+            <!-- Icon & Details -->
+            <div class="flex items-center space-x-3 min-w-0 pr-2">
+              <div class="w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center text-lg ${catInfo.bg} ${catInfo.text}">
+                ${catInfo.emoji}
+              </div>
+              <div class="truncate">
+                <div class="flex items-center space-x-1.5">
+                  <span class="font-semibold text-slate-900 text-sm truncate">${escapeHtml(item.title)}</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-medium flex-shrink-0">${escapeHtml(item.payer || '公費')}</span>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center space-x-2 mt-0.5">
+                  <span>${item.date}</span>
+                  ${item.note ? `<span>• ${escapeHtml(item.note)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <!-- Amount & Delete Action -->
+            <div class="flex items-center space-x-2 flex-shrink-0">
+              <div class="text-right">
+                <span class="text-xs text-slate-400 mr-0.5">${currentCurrency}</span>
+                <span class="text-base font-bold text-slate-900">${formatNumber(item.amount)}</span>
+              </div>
+              <button onclick="promptDelete('${item.id}', '${escapeHtml(item.title)}')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 active:bg-red-100 btn-press transition">
+                <i class="ph ph-trash text-base"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      listContainer.innerHTML = html;
+    }
+
+    // Safe HTML escape
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Render Chart and Category Progress Bars
+    function renderCategoryStats() {
+      const catTotals = { food: 0, transport: 0, stay: 0, play: 0, shopping: 0, other: 0 };
+      let total = 0;
+
+      expenses.forEach(item => {
+        const amt = Number(item.amount) || 0;
+        if (catTotals[item.category] !== undefined) {
+          catTotals[item.category] += amt;
+        } else {
+          catTotals.other += amt;
+        }
+        total += amt;
+      });
+
+      // Find top category
+      let maxCat = 'food';
+      let maxVal = -1;
+      for (const [key, val] of Object.entries(catTotals)) {
+        if (val > maxVal) {
+          maxVal = val;
+          maxCat = key;
+        }
+      }
+
+      document.getElementById('topCategoryEmoji').innerText = maxVal > 0 ? (CATEGORIES[maxCat]?.emoji || '🍜') : '—';
+      document.getElementById('chartTotalLabel').innerText = total > 0 ? `總計 ${currentCurrency} ${formatNumber(total)}` : '';
+
+      // Progress bars HTML
+      const barContainer = document.getElementById('categoryBreakdownBars');
+      let barHtml = '';
+
+      Object.keys(CATEGORIES).forEach(k => {
+        const val = catTotals[k];
+        const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+        if (val > 0 || total === 0) {
+          barHtml += `
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5">
+                <span class="text-slate-600 flex items-center gap-1">${CATEGORIES[k].emoji} ${CATEGORIES[k].name}</span>
+                <span class="font-semibold text-slate-700">${pct}% <span class="text-slate-400 font-normal">(${currentCurrency}${formatNumber(val)})</span></span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div class="h-1.5 rounded-full" style="width: ${pct}%; background-color: ${CATEGORIES[k].color}; transition: width 0.4s ease;"></div>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      if (!barHtml) {
+        barHtml = `<p class="text-slate-400 text-xs">暫無支出統計</p>`;
+      }
+      barContainer.innerHTML = barHtml;
+
+      // Update ChartJS Donut
+      const chartCanvas = document.getElementById('categoryChart');
+      if (!chartCanvas) return;
+
+      const dataValues = [
+        catTotals.food,
+        catTotals.transport,
+        catTotals.stay,
+        catTotals.play,
+        catTotals.shopping,
+        catTotals.other
+      ];
+
+      const colors = [
+        CATEGORIES.food.color,
+        CATEGORIES.transport.color,
+        CATEGORIES.stay.color,
+        CATEGORIES.play.color,
+        CATEGORIES.shopping.color,
+        CATEGORIES.other.color
+      ];
+
+      if (chartInstance) {
+        chartInstance.data.datasets[0].data = total > 0 ? dataValues : [1];
+        chartInstance.data.datasets[0].backgroundColor = total > 0 ? colors : ['#E2E8F0'];
+        chartInstance.update();
+      } else {
+        const ctx = chartCanvas.getContext('2d');
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            datasets: [{
+              data: total > 0 ? dataValues : [1],
+              backgroundColor: total > 0 ? colors : ['#E2E8F0'],
+              borderWidth: 0,
+              hoverOffset: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                enabled: total > 0,
+                callbacks: {
+                  label: function(context) {
+                    const keys = Object.keys(CATEGORIES);
+                    const k = keys[context.dataIndex];
+                    return ` ${CATEGORIES[k].name}: ${currentCurrency} ${formatNumber(context.raw)}`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // Refresh entire view
+    function renderAll() {
+      updateDashboard();
+      renderExpenseList();
+      renderCategoryStats();
+    }
+
+    // Delete Operations
+    function promptDelete(id, title) {
+      itemPendingDeleteId = id;
+      document.getElementById('deleteItemDescription').innerText = `確定要刪除「${title}」嗎？`;
+      document.getElementById('deleteModal').classList.remove('hidden');
+      document.getElementById('confirmDeleteBtn').onclick = () => executeDelete();
+    }
+
+    function closeDeleteModal() {
+      itemPendingDeleteId = null;
+      document.getElementById('deleteModal').classList.add('hidden');
+    }
+
+    function executeDelete() {
+      if (!itemPendingDeleteId) return;
+      expenses = expenses.filter(i => i.id !== itemPendingDeleteId);
+      saveData();
+      closeDeleteModal();
+      renderAll();
+      showToast('已刪除支出項目', 'ph-trash');
+    }
+
+    // Reset everything
+    function confirmResetAll() {
+      if (expenses.length === 0) {
+        showToast('目前已經沒有任何資料', 'ph-info');
+        return;
+      }
+      if (window.confirm('確定要清空所有旅行記帳資料嗎？此動作無法復原。')) {
+        expenses = [];
+        peopleCount = 2;
+        saveData();
+        renderAll();
+        showToast('已清空所有記帳記錄！', 'ph-check-circle');
+      }
+    }
+
+    // Share & Export for LINE /旅伴
+    function openShareModal() {
+      const total = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+      const mode = document.getElementById('roundingMode').value;
+      let perPerson = 0;
+      if (peopleCount > 0 && total > 0) {
+        const raw = total / peopleCount;
+        perPerson = mode === 'round' ? Math.round(raw) : (mode === 'ceil' ? Math.ceil(raw) : (mode === 'floor' ? Math.floor(raw) : Math.round(raw*10)/10));
+      }
+
+      let report = `✈️【TripSplit 旅行分帳結算報告】\n`;
+      report += `----------------------------\n`;
+      report += `👥 旅伴人數：${peopleCount} 人\n`;
+      report += `💰 總消費額：${currentCurrency} ${formatNumber(total)}\n`;
+      report += `🏷️ 每人應付：${currentCurrency} ${formatNumber(perPerson)}\n`;
+      report += `📅 結算日期：${getTodayDateString()}\n`;
+      report += `----------------------------\n`;
+      report += `📝 支出明細 (${expenses.length} 筆)：\n`;
+
+      expenses.forEach((item, index) => {
+        const cat = CATEGORIES[item.category]?.emoji || '•';
+        report += `${index + 1}. ${cat} ${item.title}：${currentCurrency} ${formatNumber(item.amount)} (${item.payer || '公費'})\n`;
+      });
+
+      report += `----------------------------\n`;
+      report += `由 TripSplit 自動試算生成 ✨`;
+
+      document.getElementById('shareTextarea').value = report;
+      document.getElementById('shareModal').classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+      document.getElementById('shareModal').classList.add('hidden');
+    }
+
+    function copyShareText() {
+      const textarea = document.getElementById('shareTextarea');
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // Mobile
+      try {
+        document.execCommand('copy');
+        showToast('報告已複製到剪貼簿，可貼至 LINE！', 'ph-check-circle');
+        const btn = document.getElementById('copyReportBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<i class="ph ph-check"></i><span>已成功複製！</span>`;
+        btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+        }, 1800);
+      } catch (err) {
+        showToast('複製失敗，請手動全選文字複製', 'ph-warning', true);
+      }
+    }
+
+    // Toast Alert
+    let toastTimeout = null;
+    function showToast(msg, iconClass = 'ph-check-circle', isWarning = false) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMsg.innerText = msg;
+      toastIcon.className = `ph ${iconClass} ${isWarning ? 'text-amber-400' : 'text-emerald-400'} text-base`;
+
+      toast.classList.remove('opacity-0', '-translate-y-20');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-20');
+      }, 2400);
+    }
+
+    // App Initialization
+    window.onload = function() {
+      initData();
+    };
+  </script>
+</body>
+</html>
