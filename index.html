@@ -4,69 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#f2f2f7">
-  <title>TripSplit 旅帳通 - 旅行記帳與分攤助手</title>
-
-  <!-- Tailwind CSS -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="旅帳通">
+    <!-- 自訂日式手繪質感 iPhone 桌面專屬圖示 (Apple Touch Icon - iOS 標準 PNG 格式) -->
+  <link rel="apple-touch-icon" href="data:image/png;base64,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">
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+  <link rel="apple-touch-icon-precomposed" href="data:image/png;base64,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">
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
+  <title>TripSplit 旅帳通 - 旅行記帳與分帳</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Phosphor Icons for iOS look -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <!-- Chart.js for sleek expense breakdown -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            iosBg: '#F2F2F7',
-            iosCard: '#FFFFFF',
-            iosBlue: '#007AFF',
-            iosIndigo: '#5856D6',
-            iosGreen: '#34C759',
-            iosOrange: '#FF9500',
-            iosRed: '#FF3B30',
-            iosGray: '#8E8E93',
-            iosLightGray: '#E5E5EA',
-          },
-          boxShadow: {
-            'ios-sm': '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 1px 4px -1px rgba(0, 0, 0, 0.03)',
-            'ios': '0 8px 24px -4px rgba(0, 0, 0, 0.07), 0 4px 12px -2px rgba(0, 0, 0, 0.04)',
-            'ios-float': '0 12px 32px rgba(0, 122, 255, 0.28)',
-          }
-        }
-      }
-    }
-  </script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* iOS native touch feel and scroll tweaks */
-    * {
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-    }
-    input, textarea, select {
-      user-select: auto;
-      -webkit-user-select: auto;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
-      background-color: #F2F2F7;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
-    .safe-bottom {
-      padding-bottom: max(env(safe-area-inset-bottom, 16px), 16px);
+    .btn-press:active {
+      transform: scale(0.96);
+      transition: transform 0.1s ease;
     }
-    .glassmorphism {
-      background: rgba(255, 255, 255, 0.85);
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
-    /* Hide scrollbars but allow scrolling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -74,835 +42,756 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    /* Button press ripple/scale simulation */
-    .btn-press:active {
-      transform: scale(0.96);
-      transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .category-radio:checked + label {
-      border-color: #007AFF;
-      background-color: #EFF6FF;
-      color: #007AFF;
-      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
-    }
   </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-100">
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
 
-  <!-- iOS Top Sticky Navigation -->
-  <header class="sticky top-0 z-30 glassmorphism border-b border-black/5 px-4 py-3">
-    <div class="max-w-md mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-iosBlue to-blue-400 flex items-center justify-center text-white shadow-sm">
-          <i class="ph ph-airplane-tilt text-lg font-bold"></i>
-        </div>
-        <div>
-          <h1 class="text-base font-semibold tracking-tight text-slate-900 leading-none">TripSplit</h1>
-          <span class="text-[10px] text-slate-400 font-medium">旅帳通 • 行動分攤</span>
-        </div>
+  <!-- 頂部導航 -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/80 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-2">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center text-white shadow-md shadow-amber-200">
+        <i class="fa-solid fa-wallet text-sm"></i>
       </div>
-
-      <div class="flex items-center space-x-2">
-        <!-- Currency Dropdown -->
-        <select id="currencySelect" onchange="changeCurrency(this.value)" class="text-xs font-semibold bg-slate-100 border-0 rounded-full px-2.5 py-1.5 text-slate-700 focus:ring-2 focus:ring-iosBlue focus:outline-none">
-          <option value="NT$">NT$ (TWD)</option>
-          <option value="¥">¥ (JPY)</option>
-          <option value="$">$ (USD)</option>
-          <option value="€">€ (EUR)</option>
-          <option value="₩">₩ (KRW)</option>
-          <option value="HK$">HK$ (HKD)</option>
-          <option value="THB">฿ (THB)</option>
-        </select>
-
-        <!-- Quick Share / Report Button -->
-        <button onclick="openShareModal()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 btn-press active:bg-slate-200" title="匯出分帳報告">
-          <i class="ph ph-share-network text-lg"></i>
-        </button>
-
-        <!-- Reset Button -->
-        <button onclick="confirmResetAll()" class="w-8 h-8 rounded-full bg-red-50 text-iosRed flex items-center justify-center btn-press active:bg-red-100" title="重置全部資料">
-          <i class="ph ph-arrow-counter-clockwise text-lg"></i>
-        </button>
+      <div>
+        <h1 class="text-lg font-bold text-slate-900 leading-tight">TripSplit 旅帳通</h1>
+        <p class="text-xs text-slate-500">旅行記帳・多日行程・分帳</p>
       </div>
+    </div>
+    <div class="flex items-center space-x-2">
+      <button onclick="openShareModal()" class="btn-press px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 font-medium text-sm flex items-center space-x-1 border border-emerald-200">
+        <i class="fa-brands fa-line text-sm"></i>
+        <span>LINE 分享</span>
+      </button>
+      <button onclick="clearAllData()" class="btn-press p-2 rounded-lg text-slate-400 hover:text-rose-500" title="清空全部資料">
+        <i class="fa-regular fa-trash-can text-sm"></i>
+      </button>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="max-w-md mx-auto px-4 pt-3 space-y-4">
+  <!-- 主內容區 -->
+  <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4 pb-24">
 
-    <!-- 1. Dashboard Card: Total & Split Amount -->
-    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-5 shadow-ios relative overflow-hidden">
-      <!-- Ambient Lighting Bubble -->
-      <div class="absolute -right-8 -top-8 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
-      <div class="absolute -left-10 -bottom-10 w-36 h-36 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none"></div>
+    <!-- 多日行程選擇導航標籤 (Day Tabs) -->
+    <div class="space-y-1.5">
+      <div class="flex items-center justify-between px-1">
+        <div class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1">
+          <i class="fa-regular fa-calendar-days text-indigo-500"></i>
+          <span>行程天數選擇</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <button onclick="addDay()" class="btn-press px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 text-xs font-semibold border border-indigo-200 py-1 px-2.5 hover:bg-indigo-100 flex items-center space-x-1">
+            <i class="fa-solid fa-plus text-[10px]"></i>
+            <span>增加天數</span>
+          </button>
+          <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press px-2 py-0.5 rounded-md bg-rose-50 text-rose-600 text-xs font-semibold border border-rose-200 py-1 px-2.5 hover:bg-rose-100 hidden">
+            刪除本天
+          </button>
+        </div>
+      </div>
+      
+      <!-- 天數滑動列 -->
+      <div id="dayTabsContainer" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar">
+        <!-- 動態渲染天數標籤 -->
+      </div>
+    </div>
 
-      <div class="relative z-10 space-y-4">
-        <!-- Total Expense Display -->
-        <div class="flex justify-between items-start">
-          <div>
-            <div class="flex items-center space-x-1.5 text-slate-400 text-xs font-medium mb-1">
-              <span>旅程總消費支出</span>
-              <span id="expenseCountBadge" class="bg-white/10 px-1.5 py-0.5 rounded text-[10px] text-blue-200">0 筆</span>
-            </div>
-            <div class="text-3xl font-extrabold tracking-tight flex items-baseline">
-              <span id="currencyPrefix" class="text-lg text-slate-400 mr-1.5 font-semibold">NT$</span>
-              <span id="totalAmountText" class="tracking-tight">0</span>
+    <!-- 儀表板卡片 -->
+    <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-5 text-white shadow-xl shadow-slate-300 relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- 統計範疇與幣別設定 -->
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center space-x-1.5">
+          <span id="scopeBadge" class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-xs px-2.5 py-1 rounded-full font-medium">當前視角：全部天數</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <select id="currencySelect" onchange="changeCurrency(this.value)" class="bg-white/10 text-white text-sm px-3 py-1.5 rounded-full outline-none border border-white/20">
+            <option value="NT$" class="text-slate-800">NT$ (TWD)</option>
+            <option value="¥" class="text-slate-800">¥ (JPY)</option>
+            <option value="$" class="text-slate-800">$ (USD)</option>
+            <option value="€" class="text-slate-800">€ (EUR)</option>
+            <option value="₩" class="text-slate-800">₩ (KRW)</option>
+            <option value="HK$" class="text-slate-800">HK$</option>
+            <option value="฿" class="text-slate-800">฿ (THB)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 總金額 -->
+      <div class="mb-4">
+        <div class="text-xs text-slate-300 font-medium mb-1" id="totalAmountLabel">總累計支出</div>
+        <div class="text-4xl font-extrabold tracking-tight">
+          <span id="currSymbol" class="text-2xl text-indigo-300 mr-1">NT$</span>
+          <span id="totalAmount">0</span>
+        </div>
+      </div>
+
+      <!-- 人數與每人應付 -->
+      <div class="grid grid-cols-2 gap-3 pt-3 border-t border-white/10">
+        <!-- 旅伴人數 -->
+        <div class="bg-white/5 rounded-2xl p-2.5 flex flex-col justify-between border border-white/5">
+          <span class="text-xs text-slate-200 font-medium mb-1.5">分攤人數</span>
+          <div class="flex items-center justify-between">
+            <button onclick="updateMembers(-1)" class="btn-press w-8 h-8 rounded-full text-base bg-white/10 hover:bg-white/20 flex items-center justify-center text-sm font-bold text-white">−</button>
+            <span id="memberCount" class="text-xl font-bold">2</span>
+            <button onclick="updateMembers(1)" class="btn-press w-8 h-8 rounded-full text-base bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">+</button>
+          </div>
+        </div>
+
+        <!-- 每人應付 -->
+        <div class="bg-white/5 rounded-2xl p-2.5 flex flex-col justify-between border border-white/5">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs text-slate-200 font-medium">每人應付</span>
+            <select id="roundMode" onchange="renderDashboard()" class="bg-transparent text-xs text-indigo-300 outline-none">
+              <option value="round" class="text-slate-800">四捨五入</option>
+              <option value="ceil" class="text-slate-800">無條件進位</option>
+              <option value="floor" class="text-slate-800">無條件捨去</option>
+              <option value="exact" class="text-slate-800">保留小數</option>
+            </select>
+          </div>
+          <div class="text-2xl font-bold text-amber-300 truncate">
+            <span id="currSymbolSub" class="text-sm mr-1">NT$</span>
+            <span id="perPersonAmount">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 記帳輸入卡片 -->
+    <div class="glass-card rounded-2xl p-4 shadow-sm border border-slate-200/80">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1.5">
+          <i class="fa-solid fa-pen-to-square text-indigo-500"></i>
+          <span>新增支出</span>
+        </h2>
+        <span id="formDayBadge" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100">
+          歸屬：Day 1
+        </span>
+      </div>
+
+      <form id="expenseForm" onsubmit="addExpense(event)" class="space-y-3">
+        <!-- 歸屬行程天數選擇 -->
+        <div>
+          <label class="block text-xs text-slate-500 font-semibold mb-1">行程天數</label>
+          <select id="inputDaySelect" class="w-full py-2.5 px-3 bg-slate-50 rounded-xl text-sm font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <!-- 動態生成天數選項 -->
+          </select>
+        </div>
+
+        <!-- 金額與類別 -->
+        <div class="grid grid-cols-5 gap-2">
+          <div class="col-span-3">
+            <label class="block text-xs text-slate-500 font-semibold mb-1">消費金額</label>
+            <div class="relative">
+              <span id="formCurrPrefix" class="absolute left-3 top-2.5 text-sm font-bold text-slate-500">NT$</span>
+              <input type="number" id="inputAmount" step="any" inputmode="decimal" required placeholder="0" class="w-full pl-12 pr-3 py-2.5 bg-slate-50 rounded-xl text-slate-800 font-bold text-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
           </div>
-          
-          <!-- Rounding Method Selector -->
-          <div class="text-right">
-            <span class="text-[10px] text-slate-400 block mb-1">計算取整模式</span>
-            <select id="roundingMode" onchange="updateDashboard()" class="text-xs font-medium bg-white/10 border border-white/10 rounded-xl px-2 py-1 text-slate-200 focus:outline-none">
-              <option value="round" class="text-black">四捨五入</option>
-              <option value="ceil" class="text-black">無條件進位 (整數)</option>
-              <option value="floor" class="text-black">無條件捨去</option>
-              <option value="exact" class="text-black">精準 (一位小數)</option>
+          <div class="col-span-2">
+            <label class="block text-xs text-slate-500 font-semibold mb-1">分類</label>
+            <select id="inputCategory" class="w-full py-2.5 px-2.5 bg-slate-50 rounded-xl text-sm font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="food">🍜 餐飲</option>
+              <option value="traffic">🚅 交通</option>
+              <option value="hotel">🏨 住宿</option>
+              <option value="ticket">🎟️ 門票娛樂</option>
+              <option value="shopping">🛍️ 購物</option>
+              <option value="other">💡 其他</option>
             </select>
           </div>
         </div>
 
-        <div class="h-px bg-white/10 w-full my-2"></div>
-
-        <!-- Split calculation per person -->
-        <div class="flex items-center justify-between pt-1">
+        <!-- 名稱項目與付款人 -->
+        <div class="grid grid-cols-2 gap-2">
           <div>
-            <span class="text-xs text-blue-300 font-medium flex items-center gap-1">
-              <i class="ph ph-users-three"></i> 每人應付 (分攤額)
-            </span>
-            <div class="text-2xl font-bold text-white tracking-tight flex items-baseline mt-0.5">
-              <span id="currencyPrefixSplit" class="text-sm text-slate-400 mr-1">NT$</span>
-              <span id="perPersonAmountText" class="text-emerald-400 font-extrabold">0</span>
-            </div>
-          </div>
-
-          <!-- People Counter Controller -->
-          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-1.5 flex items-center space-x-2 border border-white/10">
-            <button onclick="modifyPeopleCount(-1)" class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white active:bg-white/20 btn-press font-bold">
-              <i class="ph ph-minus text-sm"></i>
-            </button>
-            <div class="text-center min-w-[42px]">
-              <span id="peopleCountDisplay" class="text-base font-bold text-white block leading-tight">2</span>
-              <span class="text-[9px] text-slate-300">旅客人數</span>
-            </div>
-            <button onclick="modifyPeopleCount(1)" class="w-8 h-8 rounded-xl bg-iosBlue flex items-center justify-center text-white active:bg-blue-600 btn-press font-bold">
-              <i class="ph ph-plus text-sm"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Quick Input Section (Card) -->
-    <section class="bg-iosCard rounded-3xl p-4 shadow-ios-sm border border-black/[0.04]">
-      <div class="flex items-center justify-between mb-3 px-1">
-        <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-          <i class="ph ph-plus-circle text-iosBlue text-base"></i> 快速新增支出
-        </h2>
-        <span class="text-[11px] text-slate-400">填寫後點擊儲存</span>
-      </div>
-
-      <form id="expenseForm" onsubmit="handleAddExpense(event)" class="space-y-3">
-        <!-- Title & Amount in Grid -->
-        <div class="grid grid-cols-5 gap-2">
-          <div class="col-span-3">
-            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">項目名稱</label>
-            <input type="text" id="itemName" placeholder="例如：一蘭拉麵、新幹線" required
-              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-2xl px-3 py-2.5 focus:bg-white focus:border-iosBlue focus:ring-1 focus:ring-iosBlue focus:outline-none transition-all placeholder:text-slate-400">
-          </div>
-          <div class="col-span-2">
-            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">金額</label>
-            <input type="number" id="itemAmount" step="any" min="0" placeholder="0" required inputmode="decimal"
-              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm font-bold rounded-2xl px-3 py-2.5 focus:bg-white focus:border-iosBlue focus:ring-1 focus:ring-iosBlue focus:outline-none transition-all placeholder:text-slate-400">
-          </div>
-        </div>
-
-        <!-- Category Grid (6 Pills) -->
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-500 mb-1.5 ml-1">類別標籤</label>
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-              <input type="radio" name="expenseCat" id="cat-food" value="food" class="hidden category-radio" checked>
-              <label for="cat-food" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>🍜</span><span>餐飲</span>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="expenseCat" id="cat-transport" value="transport" class="hidden category-radio">
-              <label for="cat-transport" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>🚅</span><span>交通</span>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="expenseCat" id="cat-stay" value="stay" class="hidden category-radio">
-              <label for="cat-stay" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>🏨</span><span>住宿</span>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="expenseCat" id="cat-play" value="play" class="hidden category-radio">
-              <label for="cat-play" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>🎟️</span><span>娛樂</span>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="expenseCat" id="cat-shopping" value="shopping" class="hidden category-radio">
-              <label for="cat-shopping" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>🛍️</span><span>購物</span>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="expenseCat" id="cat-other" value="other" class="hidden category-radio">
-              <label for="cat-other" class="flex items-center justify-center space-x-1.5 py-2 px-1 text-xs font-medium rounded-xl border border-slate-200 bg-white text-slate-700 cursor-pointer transition-all">
-                <span>💡</span><span>其他</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Payer & Date & Memo -->
-        <div class="grid grid-cols-2 gap-2 pt-1">
-          <div>
-            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">付款人</label>
-            <input type="text" id="itemPayer" placeholder="公費 / 我 / 姓名" list="payerPresets"
-              class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl px-3 py-2 focus:bg-white focus:border-iosBlue focus:outline-none">
-            <datalist id="payerPresets">
-              <option value="公費錢包"></option>
-              <option value="我 (先代墊)"></option>
-              <option value="旅伴A"></option>
-              <option value="旅伴B"></option>
-            </datalist>
+            <label class="block text-xs text-slate-500 font-semibold mb-1">品項說明</label>
+            <input type="text" id="inputTitle" required placeholder="例：晚餐居酒屋、新幹線車票" class="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-sm border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
           </div>
           <div>
-            <label class="block text-[11px] font-semibold text-slate-500 mb-1 ml-1">日期</label>
-            <input type="date" id="itemDate" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl px-2.5 py-2 focus:bg-white focus:border-iosBlue focus:outline-none">
+            <label class="block text-xs text-slate-500 font-semibold mb-1">付款人</label>
+            <input type="text" id="inputPayer" placeholder="例：公費錢包、我" value="公費錢包" class="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-sm border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
           </div>
         </div>
 
-        <div>
-          <input type="text" id="itemNote" placeholder="備註說明（選填，如：含稅、使用信用卡）"
-            class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2 focus:bg-white focus:border-iosBlue focus:outline-none placeholder:text-slate-400">
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="w-full bg-iosBlue hover:bg-blue-600 active:scale-[0.98] transition text-white font-semibold py-3 rounded-2xl shadow-ios-float flex items-center justify-center space-x-2 mt-1">
-          <i class="ph ph-check-bold text-base"></i>
-          <span class="text-sm tracking-wide">記下一筆支出</span>
+        <button type="submit" class="btn-press w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-md shadow-indigo-100 flex items-center justify-center space-x-1.5">
+          <i class="fa-solid fa-plus text-xs"></i>
+          <span>記錄這筆開銷</span>
         </button>
       </form>
-    </section>
+    </div>
 
-    <!-- 3. Expenses Chart Breakdown (Collapsible & Compact) -->
-    <section class="bg-iosCard rounded-3xl p-4 shadow-ios-sm border border-black/[0.04]">
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-          <i class="ph ph-chart-pie-slice text-indigo-500 text-base"></i> 分類支出分佈
+    <!-- 分析圖表區塊 (有資料時才展開) -->
+    <div id="chartSection" class="glass-card rounded-2xl p-4 shadow-sm border border-slate-200/80 hidden">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">支出分佈（<span id="chartDayLabel">全部</span>）</h3>
+        <span id="chartTotalBadge" class="text-[10px] bg-slate-100 px-2 py-0.5 rounded-full text-slate-600 font-medium"></span>
+      </div>
+      <div class="h-44 flex items-center justify-center">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+
+    <!-- 支出明細列表 -->
+    <div class="space-y-2">
+      <div class="flex justify-between items-center px-1">
+        <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider">
+          消費明細 (<span id="recordCount">0</span>)
         </h3>
-        <span id="chartTotalLabel" class="text-[11px] font-semibold text-slate-500"></span>
+        <select id="filterCategory" onchange="renderExpenses()" class="bg-transparent text-xs text-indigo-600 font-bold outline-none">
+          <option value="all">全部分類</option>
+          <option value="food">🍜 餐飲</option>
+          <option value="traffic">🚅 交通</option>
+          <option value="hotel">🏨 住宿</option>
+          <option value="ticket">🎟️ 門票娛樂</option>
+          <option value="shopping">🛍️ 購物</option>
+          <option value="other">💡 其他</option>
+        </select>
       </div>
 
-      <!-- Chart Container -->
-      <div class="flex items-center justify-between py-1">
-        <div class="w-32 h-32 relative flex items-center justify-center mx-auto sm:mx-0">
-          <canvas id="categoryChart"></canvas>
-          <div id="chartCenterText" class="absolute text-center pointer-events-none">
-            <span class="text-[10px] text-slate-400 block">最高</span>
-            <span id="topCategoryEmoji" class="text-sm font-bold">🍜</span>
-          </div>
-        </div>
-
-        <!-- Category Progress Bars -->
-        <div id="categoryBreakdownBars" class="flex-1 pl-4 space-y-1.5 text-xs">
-          <!-- Dynamically inserted -->
-        </div>
+      <div id="expenseList" class="space-y-2">
+        <!-- 動態渲染明細 -->
       </div>
-    </section>
-
-    <!-- 4. Expense List with Category Filter -->
-    <section class="space-y-2.5 pb-6">
-      <div class="flex items-center justify-between px-1">
-        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-          <i class="ph ph-receipt text-iosOrange text-base"></i> 支出明細列表
-        </h3>
-        <span id="listSummaryText" class="text-xs text-slate-400">共 0 筆</span>
-      </div>
-
-      <!-- Filter Filter Pills (Horizontal Scroll) -->
-      <div class="flex items-center space-x-1.5 overflow-x-auto no-scrollbar py-1">
-        <button onclick="setFilter('all')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-iosBlue text-white shadow-sm" data-cat="all">全部</button>
-        <button onclick="setFilter('food')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="food">🍜 餐飲</button>
-        <button onclick="setFilter('transport')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="transport">🚅 交通</button>
-        <button onclick="setFilter('stay')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="stay">🏨 住宿</button>
-        <button onclick="setFilter('play')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="play">🎟️ 娛樂</button>
-        <button onclick="setFilter('shopping')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="shopping">🛍️ 購物</button>
-        <button onclick="setFilter('other')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200" data-cat="other">💡 其他</button>
-      </div>
-
-      <!-- List Items Container -->
-      <div id="expenseListContainer" class="space-y-2">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
+    </div>
 
   </main>
 
-  <!-- Share / LINE Report Modal -->
-  <div id="shareModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-    <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl space-y-4 safe-bottom">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+  <!-- LINE 分享報告 Modal -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="flex justify-between items-center mb-3">
         <div class="flex items-center space-x-2">
-          <div class="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
-            <i class="ph ph-chat-circle-dots text-lg"></i>
+          <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">
+            <i class="fa-brands fa-line"></i>
           </div>
-          <h3 class="text-base font-bold text-slate-900">分帳結算報告 (LINE / 旅伴分享)</h3>
+          <h4 class="font-bold text-slate-900 text-base">LINE 請款與行程結算報告</h4>
         </div>
-        <button onclick="closeShareModal()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center">
-          <i class="ph ph-x"></i>
+        <button onclick="closeShareModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
-
-      <p class="text-xs text-slate-500">已為您將目前所有支出清單與分攤結果整理成文字格式，點擊下方即可直接複製分享！</p>
-
-      <textarea id="shareTextarea" readonly class="w-full h-44 bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs font-mono text-slate-700 focus:outline-none"></textarea>
-
-      <div class="grid grid-cols-2 gap-2 pt-1">
-        <button onclick="copyShareText()" id="copyReportBtn" class="bg-emerald-600 text-white font-medium py-2.5 rounded-xl text-xs flex items-center justify-center space-x-1.5 btn-press shadow-md">
-          <i class="ph ph-copy"></i>
-          <span>一鍵複製報告</span>
-        </button>
-        <button onclick="closeShareModal()" class="bg-slate-100 text-slate-700 font-medium py-2.5 rounded-xl text-xs btn-press">
-          關閉
-        </button>
+      <div class="flex items-center space-x-2 mb-2">
+        <span class="text-xs text-slate-600 font-semibold">匯出範圍：</span>
+        <select id="shareScopeSelect" onchange="generateShareText()" class="text-xs bg-slate-100 border border-slate-200 rounded-lg px-2 py-1 outline-none text-slate-700 font-medium">
+          <option value="all">全部行程總結算</option>
+          <!-- 動態注入各日選項 -->
+        </select>
       </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification (iOS Notification Banner Style) -->
-  <div id="toastNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none w-11/12 max-w-sm">
-    <div class="bg-slate-900/90 backdrop-blur-md text-white text-xs font-semibold py-2.5 px-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-center border border-white/10">
-      <i id="toastIcon" class="ph ph-check-circle text-emerald-400 text-base"></i>
-      <span id="toastMessage">已成功新增！</span>
-    </div>
-  </div>
-
-  <!-- Delete Confirmation Modal (Native-styled alert dialog) -->
-  <div id="deleteModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-6">
-    <div class="bg-white w-full max-w-xs rounded-2xl p-5 shadow-2xl text-center space-y-3">
-      <div class="w-12 h-12 bg-red-100 text-iosRed rounded-full mx-auto flex items-center justify-center text-xl">
-        <i class="ph ph-trash"></i>
-      </div>
-      <h4 class="text-base font-bold text-slate-800">確定刪除此筆支出？</h4>
-      <p id="deleteItemDescription" class="text-xs text-slate-500">刪除後總額與每人分攤金額將即時重算。</p>
-      <div class="flex space-x-2 pt-2">
-        <button onclick="closeDeleteModal()" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium btn-press">取消</button>
-        <button id="confirmDeleteBtn" class="flex-1 py-2 rounded-xl bg-iosRed text-white text-xs font-medium btn-press">確認刪除</button>
+      <textarea id="shareTextPreview" readonly class="w-full flex-1 p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono text-slate-700 leading-relaxed outline-none resize-none mb-3"></textarea>
+      <div class="flex space-x-2">
+        <button onclick="copyShareText()" class="btn-press flex-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold flex items-center justify-center space-x-1 shadow-md shadow-emerald-100">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copyBtnText">一鍵複製報告</span>
+        </button>
       </div>
     </div>
   </div>
 
   <script>
-    /* Category configuration map */
     const CATEGORIES = {
-      food: { name: '餐飲', emoji: '🍜', color: '#FF9500', bg: 'bg-orange-50', text: 'text-orange-600' },
-      transport: { name: '交通', emoji: '🚅', color: '#007AFF', bg: 'bg-blue-50', text: 'text-blue-600' },
-      stay: { name: '住宿', emoji: '🏨', color: '#5856D6', bg: 'bg-indigo-50', text: 'text-indigo-600' },
-      play: { name: '娛樂', emoji: '🎟️', color: '#AF52DE', bg: 'bg-purple-50', text: 'text-purple-600' },
-      shopping: { name: '購物', emoji: '🛍️', color: '#FF2D55', bg: 'bg-pink-50', text: 'text-pink-600' },
-      other: { name: '其他', emoji: '💡', color: '#8E8E93', bg: 'bg-slate-100', text: 'text-slate-600' }
+      food: { name: '餐飲', icon: '🍜', color: '#f97316' },
+      traffic: { name: '交通', icon: '🚅', color: '#0ea5e9' },
+      hotel: { name: '住宿', icon: '🏨', color: '#8b5cf6' },
+      ticket: { name: '門票娛樂', icon: '🎟️', color: '#ec4899' },
+      shopping: { name: '購物', icon: '🛍️', color: '#10b981' },
+      other: { name: '其他', icon: '💡', color: '#64748b' }
     };
 
-    /* App State Management */
-    let expenses = [];
-    let peopleCount = 2;
-    let currentCurrency = 'NT$';
-    let currentFilter = 'all';
-    let itemPendingDeleteId = null;
+    let state = {
+      currency: 'NT$',
+      members: 2,
+      roundMode: 'ceil',
+      totalDays: 3,
+      currentDayFilter: 0,
+      expenses: []
+    };
+
     let chartInstance = null;
 
-    // Load initial data from localStorage
-    function initData() {
-      try {
-        const storedExpenses = localStorage.getItem('tripsplit_expenses');
-        if (storedExpenses) {
-          expenses = JSON.parse(storedExpenses);
-        } else {
-          // Preload friendly sample demo data for new users
-          expenses = [
-            { id: '1', title: '一蘭拉麵新宿店', amount: 3200, category: 'food', payer: '公費錢包', date: getTodayDateString(), note: '包含加麵與溫泉蛋' },
-            { id: '2', title: '成田特快 N\'EX 車票', amount: 8140, category: 'transport', payer: '我 (代墊)', date: getTodayDateString(), note: '往返套票 2 人' },
-            { id: '3', title: '銀座飯店第一晚訂金', amount: 15600, category: 'stay', payer: '公費錢包', date: getTodayDateString(), note: '雙人房' }
-          ];
-        }
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      document.getElementById('currencySelect').value = state.currency;
+      document.getElementById('memberCount').textContent = state.members;
+      document.getElementById('roundMode').value = state.roundMode;
+      updateCurrencyLabels();
+      renderDayTabs();
+      renderDaySelectOptions();
+      renderDashboard();
+      renderExpenses();
+      initChart();
+    });
 
-        const storedPeople = localStorage.getItem('tripsplit_people');
-        if (storedPeople) peopleCount = parseInt(storedPeople) || 2;
-
-        const storedCurrency = localStorage.getItem('tripsplit_currency');
-        if (storedCurrency) currentCurrency = storedCurrency;
-
-        const storedRound = localStorage.getItem('tripsplit_rounding');
-        if (storedRound) {
-          document.getElementById('roundingMode').value = storedRound;
-        }
-
-        // Set inputs
-        document.getElementById('currencySelect').value = currentCurrency;
-        document.getElementById('itemDate').value = getTodayDateString();
-      } catch (e) {
-        console.error('Failed to load localStorage', e);
-      }
-
-      renderAll();
+    function saveState() {
+      localStorage.setItem('tripsplit_multi_data', JSON.stringify(state));
     }
 
-    function saveData() {
-      try {
-        localStorage.setItem('tripsplit_expenses', JSON.stringify(expenses));
-        localStorage.setItem('tripsplit_people', peopleCount.toString());
-        localStorage.setItem('tripsplit_currency', currentCurrency);
-        localStorage.setItem('tripsplit_rounding', document.getElementById('roundingMode').value);
-      } catch (e) {
-        console.error('Failed to save to localStorage', e);
+    function loadState() {
+      const saved = localStorage.getItem('tripsplit_multi_data');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          state = { ...state, ...parsed };
+          if (!state.totalDays || state.totalDays < 1) state.totalDays = 3;
+          state.expenses.forEach(item => {
+            if (!item.day) item.day = 1;
+          });
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
 
-    function getTodayDateString() {
-      const now = new Date();
-      const y = now.getFullYear();
-      const m = String(now.getMonth() + 1).padStart(2, '0');
-      const d = String(now.getDate()).padStart(2, '0');
-      return `${y}-${m}-${d}`;
+    function addDay() {
+      state.totalDays += 1;
+      state.currentDayFilter = state.totalDays;
+      saveState();
+      renderDayTabs();
+      renderDaySelectOptions();
+      renderDashboard();
+      renderExpenses();
+      updateChart();
     }
 
-    // Number formatting with comma
-    function formatNumber(num) {
-      if (isNaN(num)) return '0';
-      return Number(num).toLocaleString('zh-TW', { maximumFractionDigits: 1 });
+    function deleteCurrentDay() {
+      if (state.currentDayFilter === 0) return;
+      const targetDay = state.currentDayFilter;
+      const count = state.expenses.filter(i => i.day === targetDay).length;
+      
+      const confirmMsg = count > 0 
+        ? `確定要刪除 Day ${targetDay} 嗎？該天的 ${count} 筆記帳將一併刪除！`
+        : `確定要刪除 Day ${targetDay} 嗎？`;
+
+      if (confirm(confirmMsg)) {
+        state.expenses = state.expenses.filter(i => i.day !== targetDay);
+        state.expenses.forEach(i => {
+          if (i.day > targetDay) i.day -= 1;
+        });
+        state.totalDays = Math.max(1, state.totalDays - 1);
+        state.currentDayFilter = Math.min(targetDay, state.totalDays);
+        saveState();
+        renderDayTabs();
+        renderDaySelectOptions();
+        renderDashboard();
+        renderExpenses();
+        updateChart();
+      }
     }
 
-    // Update people count
-    function modifyPeopleCount(delta) {
-      const newCount = peopleCount + delta;
-      if (newCount < 1) return;
-      peopleCount = newCount;
-      document.getElementById('peopleCountDisplay').innerText = peopleCount;
-      saveData();
-      updateDashboard();
-      showToast(`旅客人數已調整為 ${peopleCount} 人`, 'ph-users-three');
+    function selectDay(dayNumber) {
+      state.currentDayFilter = dayNumber;
+      renderDayTabs();
+      renderDashboard();
+      renderExpenses();
+      updateChart();
+      
+      const inputDaySelect = document.getElementById('inputDaySelect');
+      if (dayNumber > 0 && inputDaySelect) {
+        inputDaySelect.value = dayNumber;
+        document.getElementById('formDayBadge').textContent = `歸屬：Day ${dayNumber}`;
+      }
     }
 
-    // Currency Switcher
-    function changeCurrency(newCurr) {
-      currentCurrency = newCurr;
-      document.getElementById('currencyPrefix').innerText = currentCurrency;
-      document.getElementById('currencyPrefixSplit').innerText = currentCurrency;
-      saveData();
-      renderAll();
-      showToast(`已切換幣別為 ${currentCurrency}`, 'ph-currency-circle-dollar');
+    function renderDayTabs() {
+      const container = document.getElementById('dayTabsContainer');
+      const delBtn = document.getElementById('btnDeleteDay');
+      
+      if (state.currentDayFilter > 0 && state.totalDays > 1) {
+        delBtn.classList.remove('hidden');
+        delBtn.textContent = `刪除 Day ${state.currentDayFilter}`;
+      } else {
+        delBtn.classList.add('hidden');
+      }
+
+      let tabsHtml = '';
+      const isAllActive = state.currentDayFilter === 0;
+      tabsHtml += `
+        <button onclick="selectDay(0)" class="btn-press px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all shadow-sm ${
+          isAllActive 
+            ? 'bg-slate-900 text-white shadow-slate-300' 
+            : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/80'
+        }">
+          全部天數
+        </button>
+      `;
+
+      for (let d = 1; d <= state.totalDays; d++) {
+        const isActive = state.currentDayFilter === d;
+        const dayTotal = state.expenses.filter(i => i.day === d).reduce((s, i) => s + i.amount, 0);
+        tabsHtml += `
+          <button onclick="selectDay(${d})" class="btn-press px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center space-x-1 shadow-sm ${
+            isActive 
+              ? 'bg-indigo-600 text-white shadow-indigo-200' 
+              : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/80'
+          }">
+            <span>Day ${d}</span>
+            ${dayTotal > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-indigo-800 text-indigo-100' : 'bg-slate-100 text-slate-500'}">${formatShortAmount(dayTotal)}</span>` : ''}
+          </button>
+        `;
+      }
+
+      container.innerHTML = tabsHtml;
     }
 
-    // Add new Expense
-    function handleAddExpense(event) {
-      event.preventDefault();
+    function formatShortAmount(num) {
+      if (num >= 10000) return (num / 1000).toFixed(0) + 'k';
+      return num.toLocaleString();
+    }
 
-      const titleInput = document.getElementById('itemName');
-      const amountInput = document.getElementById('itemAmount');
-      const payerInput = document.getElementById('itemPayer');
-      const dateInput = document.getElementById('itemDate');
-      const noteInput = document.getElementById('itemNote');
-      const checkedCat = document.querySelector('input[name="expenseCat"]:checked');
+    function renderDaySelectOptions() {
+      const select = document.getElementById('inputDaySelect');
+      let options = '';
+      for (let d = 1; d <= state.totalDays; d++) {
+        options += `<option value="${d}">第 ${d} 天 (Day ${d})</option>`;
+      }
+      select.innerHTML = options;
+      if (state.currentDayFilter > 0) {
+        select.value = state.currentDayFilter;
+        document.getElementById('formDayBadge').textContent = `歸屬：Day ${state.currentDayFilter}`;
+      } else {
+        select.value = 1;
+        document.getElementById('formDayBadge').textContent = `歸屬：Day 1`;
+      }
 
-      const title = titleInput.value.trim();
+      select.onchange = (e) => {
+        document.getElementById('formDayBadge').textContent = `歸屬：Day ${e.target.value}`;
+      };
+    }
+
+    function updateMembers(delta) {
+      const next = state.members + delta;
+      if (next >= 1) {
+        state.members = next;
+        document.getElementById('memberCount').textContent = next;
+        saveState();
+        renderDashboard();
+      }
+    }
+
+    function changeCurrency(val) {
+      state.currency = val;
+      updateCurrencyLabels();
+      saveState();
+      renderDashboard();
+      renderExpenses();
+    }
+
+    function updateCurrencyLabels() {
+      document.getElementById('currSymbol').textContent = state.currency;
+      document.getElementById('currSymbolSub').textContent = state.currency;
+      document.getElementById('formCurrPrefix').textContent = state.currency;
+    }
+
+    function getCurrentExpenses() {
+      if (state.currentDayFilter === 0) {
+        return state.expenses;
+      }
+      return state.expenses.filter(i => i.day === state.currentDayFilter);
+    }
+
+    function addExpense(e) {
+      e.preventDefault();
+      const amountInput = document.getElementById('inputAmount');
+      const titleInput = document.getElementById('inputTitle');
+      const catInput = document.getElementById('inputCategory');
+      const payerInput = document.getElementById('inputPayer');
+      const daySelect = document.getElementById('inputDaySelect');
+
       const amount = parseFloat(amountInput.value);
-      const category = checkedCat ? checkedCat.value : 'food';
-      const payer = payerInput.value.trim() || '公費錢包';
-      const date = dateInput.value || getTodayDateString();
-      const note = noteInput.value.trim();
+      if (isNaN(amount) || amount <= 0) return;
 
-      if (!title || isNaN(amount) || amount <= 0) {
-        showToast('請輸入有效項目名稱與金額！', 'ph-warning', true);
-        return;
-      }
+      const chosenDay = parseInt(daySelect.value) || 1;
 
       const newExpense = {
         id: Date.now().toString(),
-        title,
-        amount,
-        category,
-        payer,
-        date,
-        note
+        day: chosenDay,
+        title: titleInput.value.trim() || '未命名消費',
+        amount: amount,
+        category: catInput.value,
+        payer: payerInput.value.trim() || '公費錢包',
+        date: new Date().toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
       };
 
-      // Add to front of array
-      expenses.unshift(newExpense);
-      saveData();
+      state.expenses.unshift(newExpense);
+      saveState();
 
-      // Reset fields
-      titleInput.value = '';
       amountInput.value = '';
-      noteInput.value = '';
-      titleInput.blur();
+      titleInput.value = '';
       amountInput.blur();
 
-      renderAll();
-      showToast(`已記下「${title}」${currentCurrency} ${formatNumber(amount)}`, 'ph-check-circle');
+      renderDayTabs();
+      renderDashboard();
+      renderExpenses();
+      updateChart();
     }
 
-    // Calculation & Dashboard
-    function updateDashboard() {
-      const total = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
-      const count = expenses.length;
+    function deleteExpense(id) {
+      if (confirm('確定要刪除這筆開銷嗎？')) {
+        state.expenses = state.expenses.filter(item => item.id !== id);
+        saveState();
+        renderDayTabs();
+        renderDashboard();
+        renderExpenses();
+        updateChart();
+      }
+    }
 
-      document.getElementById('totalAmountText').innerText = formatNumber(total);
-      document.getElementById('expenseCountBadge').innerText = `${count} 筆`;
-      document.getElementById('currencyPrefix').innerText = currentCurrency;
-      document.getElementById('currencyPrefixSplit').innerText = currentCurrency;
-      document.getElementById('peopleCountDisplay').innerText = peopleCount;
+    function clearAllData() {
+      if (confirm('確定要清空所有行程與記帳資料嗎？（此動作無法復原）')) {
+        state.expenses = [];
+        state.totalDays = 3;
+        state.currentDayFilter = 0;
+        saveState();
+        renderDayTabs();
+        renderDaySelectOptions();
+        renderDashboard();
+        renderExpenses();
+        updateChart();
+      }
+    }
 
-      // Split calculation with rounding
-      const mode = document.getElementById('roundingMode').value;
-      let perPerson = 0;
-      if (peopleCount > 0 && total > 0) {
-        const raw = total / peopleCount;
-        if (mode === 'round') {
-          perPerson = Math.round(raw);
-        } else if (mode === 'ceil') {
-          perPerson = Math.ceil(raw);
-        } else if (mode === 'floor') {
-          perPerson = Math.floor(raw);
-        } else {
-          // exact
-          perPerson = Math.round(raw * 10) / 10;
-        }
+    function renderDashboard() {
+      state.roundMode = document.getElementById('roundMode').value;
+      const activeList = getCurrentExpenses();
+      const total = activeList.reduce((sum, item) => sum + item.amount, 0);
+      document.getElementById('totalAmount').textContent = total.toLocaleString('zh-TW');
+
+      const scopeBadge = document.getElementById('scopeBadge');
+      const totalAmountLabel = document.getElementById('totalAmountLabel');
+      if (state.currentDayFilter === 0) {
+        scopeBadge.textContent = '當前視角：全部天數總覽';
+        totalAmountLabel.textContent = '全行程累計總支出';
+      } else {
+        scopeBadge.textContent = `當前視角：第 ${state.currentDayFilter} 天 (Day ${state.currentDayFilter})`;
+        totalAmountLabel.textContent = `Day ${state.currentDayFilter} 當日總支出`;
       }
 
-      document.getElementById('perPersonAmountText').innerText = formatNumber(perPerson);
-      saveData();
+      let perPerson = total / (state.members || 1);
+      let displayPerPerson = 0;
+
+      if (state.roundMode === 'ceil') {
+        displayPerPerson = Math.ceil(perPerson);
+      } else if (state.roundMode === 'floor') {
+        displayPerPerson = Math.floor(perPerson);
+      } else if (state.roundMode === 'round') {
+        displayPerPerson = Math.round(perPerson);
+      } else {
+        displayPerPerson = perPerson.toFixed(1);
+      }
+
+      document.getElementById('perPersonAmount').textContent = displayPerPerson.toLocaleString('zh-TW');
+      document.getElementById('recordCount').textContent = activeList.length;
     }
 
-    // Filter Expense List
-    function setFilter(cat) {
-      currentFilter = cat;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = 'filter-btn text-xs font-semibold px-3 py-1.5 rounded-full transition whitespace-nowrap bg-iosBlue text-white shadow-sm';
-        } else {
-          btn.className = 'filter-btn text-xs font-medium px-3 py-1.5 rounded-full transition whitespace-nowrap bg-white text-slate-600 border border-slate-200';
-        }
-      });
-      renderExpenseList();
-    }
+    function renderExpenses() {
+      const container = document.getElementById('expenseList');
+      const catFilter = document.getElementById('filterCategory').value;
+      let list = getCurrentExpenses();
 
-    // Render Expense List
-    function renderExpenseList() {
-      const listContainer = document.getElementById('expenseListContainer');
-      const filtered = expenses.filter(item => {
-        if (currentFilter === 'all') return true;
-        return item.category === currentFilter;
-      });
+      if (catFilter !== 'all') {
+        list = list.filter(i => i.category === catFilter);
+      }
 
-      document.getElementById('listSummaryText').innerText = `共 ${filtered.length} 筆`;
-
-      if (filtered.length === 0) {
-        listContainer.innerHTML = `
-          <div class="bg-white rounded-2xl p-8 text-center text-slate-400 border border-dashed border-slate-200">
-            <i class="ph ph-receipt-x text-3xl mb-1 text-slate-300"></i>
-            <p class="text-xs">尚無相關支出記錄</p>
-            <span class="text-[10px] text-slate-400">上方表單輸入後即可開始記帳！</span>
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-slate-400 bg-white/60 rounded-2xl border border-dashed border-slate-200">
+            <i class="fa-regular fa-clipboard text-2xl mb-2 opacity-50"></i>
+            <p class="text-xs">${state.currentDayFilter === 0 ? '目前尚無支出記錄' : `Day ${state.currentDayFilter} 尚無支出記錄`}，快記上一筆吧！</p>
           </div>
         `;
         return;
       }
 
-      let html = '';
-      filtered.forEach(item => {
-        const catInfo = CATEGORIES[item.category] || CATEGORIES.other;
-        html += `
-          <div class="bg-iosCard rounded-2xl p-3.5 shadow-ios-sm border border-black/[0.03] flex items-center justify-between transition hover:shadow-md">
-            <!-- Icon & Details -->
-            <div class="flex items-center space-x-3 min-w-0 pr-2">
-              <div class="w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center text-lg ${catInfo.bg} ${catInfo.text}">
-                ${catInfo.emoji}
+      container.innerHTML = list.map(item => {
+        const cat = CATEGORIES[item.category] || CATEGORIES.other;
+        return `
+          <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between border border-slate-200/70 shadow-sm">
+            <div class="flex items-center space-x-3 overflow-hidden">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-slate-50 border border-slate-100 flex-shrink-0">
+                ${cat.icon}
               </div>
-              <div class="truncate">
+              <div class="min-w-0">
                 <div class="flex items-center space-x-1.5">
-                  <span class="font-semibold text-slate-900 text-sm truncate">${escapeHtml(item.title)}</span>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-medium flex-shrink-0">${escapeHtml(item.payer || '公費')}</span>
+                  <span class="text-xs font-bold px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-100 flex-shrink-0">D${item.day}</span>
+                  <div class="font-bold text-sm font-bold text-slate-800 truncate">${escapeHtml(item.title)}</div>
                 </div>
-                <div class="text-[11px] text-slate-400 flex items-center space-x-2 mt-0.5">
+                <div class="text-xs text-slate-400 flex items-center space-x-1.5 mt-1">
+                  <span>${escapeHtml(item.payer)}</span>
+                  <span>•</span>
                   <span>${item.date}</span>
-                  ${item.note ? `<span>• ${escapeHtml(item.note)}</span>` : ''}
                 </div>
               </div>
             </div>
-
-            <!-- Amount & Delete Action -->
-            <div class="flex items-center space-x-2 flex-shrink-0">
+            <div class="flex items-center space-x-3 flex-shrink-0">
               <div class="text-right">
-                <span class="text-xs text-slate-400 mr-0.5">${currentCurrency}</span>
-                <span class="text-base font-bold text-slate-900">${formatNumber(item.amount)}</span>
+                <div class="font-bold text-base font-extrabold text-slate-900">${state.currency} ${item.amount.toLocaleString()}</div>
+                <div class="text-xs text-slate-400 font-medium">${cat.name}</div>
               </div>
-              <button onclick="promptDelete('${item.id}', '${escapeHtml(item.title)}')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 active:bg-red-100 btn-press transition">
-                <i class="ph ph-trash text-base"></i>
+              <button onclick="deleteExpense('${item.id}')" class="btn-press text-slate-300 hover:text-rose-500 p-1">
+                <i class="fa-solid fa-xmark text-xs"></i>
               </button>
             </div>
           </div>
         `;
-      });
-
-      listContainer.innerHTML = html;
+      }).join('');
     }
 
-    // Safe HTML escape
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    // Render Chart and Category Progress Bars
-    function renderCategoryStats() {
-      const catTotals = { food: 0, transport: 0, stay: 0, play: 0, shopping: 0, other: 0 };
-      let total = 0;
-
-      expenses.forEach(item => {
-        const amt = Number(item.amount) || 0;
-        if (catTotals[item.category] !== undefined) {
-          catTotals[item.category] += amt;
-        } else {
-          catTotals.other += amt;
-        }
-        total += amt;
-      });
-
-      // Find top category
-      let maxCat = 'food';
-      let maxVal = -1;
-      for (const [key, val] of Object.entries(catTotals)) {
-        if (val > maxVal) {
-          maxVal = val;
-          maxCat = key;
-        }
-      }
-
-      document.getElementById('topCategoryEmoji').innerText = maxVal > 0 ? (CATEGORIES[maxCat]?.emoji || '🍜') : '—';
-      document.getElementById('chartTotalLabel').innerText = total > 0 ? `總計 ${currentCurrency} ${formatNumber(total)}` : '';
-
-      // Progress bars HTML
-      const barContainer = document.getElementById('categoryBreakdownBars');
-      let barHtml = '';
-
-      Object.keys(CATEGORIES).forEach(k => {
-        const val = catTotals[k];
-        const pct = total > 0 ? Math.round((val / total) * 100) : 0;
-        if (val > 0 || total === 0) {
-          barHtml += `
-            <div>
-              <div class="flex justify-between text-[11px] mb-0.5">
-                <span class="text-slate-600 flex items-center gap-1">${CATEGORIES[k].emoji} ${CATEGORIES[k].name}</span>
-                <span class="font-semibold text-slate-700">${pct}% <span class="text-slate-400 font-normal">(${currentCurrency}${formatNumber(val)})</span></span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div class="h-1.5 rounded-full" style="width: ${pct}%; background-color: ${CATEGORIES[k].color}; transition: width 0.4s ease;"></div>
-              </div>
-            </div>
-          `;
-        }
-      });
-
-      if (!barHtml) {
-        barHtml = `<p class="text-slate-400 text-xs">暫無支出統計</p>`;
-      }
-      barContainer.innerHTML = barHtml;
-
-      // Update ChartJS Donut
-      const chartCanvas = document.getElementById('categoryChart');
-      if (!chartCanvas) return;
-
-      const dataValues = [
-        catTotals.food,
-        catTotals.transport,
-        catTotals.stay,
-        catTotals.play,
-        catTotals.shopping,
-        catTotals.other
-      ];
-
-      const colors = [
-        CATEGORIES.food.color,
-        CATEGORIES.transport.color,
-        CATEGORIES.stay.color,
-        CATEGORIES.play.color,
-        CATEGORIES.shopping.color,
-        CATEGORIES.other.color
-      ];
-
-      if (chartInstance) {
-        chartInstance.data.datasets[0].data = total > 0 ? dataValues : [1];
-        chartInstance.data.datasets[0].backgroundColor = total > 0 ? colors : ['#E2E8F0'];
-        chartInstance.update();
-      } else {
-        const ctx = chartCanvas.getContext('2d');
-        chartInstance = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            datasets: [{
-              data: total > 0 ? dataValues : [1],
-              backgroundColor: total > 0 ? colors : ['#E2E8F0'],
-              borderWidth: 0,
-              hoverOffset: 3
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '72%',
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                enabled: total > 0,
-                callbacks: {
-                  label: function(context) {
-                    const keys = Object.keys(CATEGORIES);
-                    const k = keys[context.dataIndex];
-                    return ` ${CATEGORIES[k].name}: ${currentCurrency} ${formatNumber(context.raw)}`;
-                  }
-                }
+    function initChart() {
+      const ctx = document.getElementById('categoryChart').getContext('2d');
+      chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [],
+            backgroundColor: [],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 10,
+                font: { size: 10 }
               }
             }
-          }
-        });
-      }
+          },
+          cutout: '70%'
+        }
+      });
+      updateChart();
     }
 
-    // Refresh entire view
-    function renderAll() {
-      updateDashboard();
-      renderExpenseList();
-      renderCategoryStats();
-    }
+    function updateChart() {
+      const section = document.getElementById('chartSection');
+      const activeList = getCurrentExpenses();
 
-    // Delete Operations
-    function promptDelete(id, title) {
-      itemPendingDeleteId = id;
-      document.getElementById('deleteItemDescription').innerText = `確定要刪除「${title}」嗎？`;
-      document.getElementById('deleteModal').classList.remove('hidden');
-      document.getElementById('confirmDeleteBtn').onclick = () => executeDelete();
-    }
-
-    function closeDeleteModal() {
-      itemPendingDeleteId = null;
-      document.getElementById('deleteModal').classList.add('hidden');
-    }
-
-    function executeDelete() {
-      if (!itemPendingDeleteId) return;
-      expenses = expenses.filter(i => i.id !== itemPendingDeleteId);
-      saveData();
-      closeDeleteModal();
-      renderAll();
-      showToast('已刪除支出項目', 'ph-trash');
-    }
-
-    // Reset everything
-    function confirmResetAll() {
-      if (expenses.length === 0) {
-        showToast('目前已經沒有任何資料', 'ph-info');
+      if (activeList.length === 0) {
+        section.classList.add('hidden');
         return;
       }
-      if (window.confirm('確定要清空所有旅行記帳資料嗎？此動作無法復原。')) {
-        expenses = [];
-        peopleCount = 2;
-        saveData();
-        renderAll();
-        showToast('已清空所有記帳記錄！', 'ph-check-circle');
-      }
-    }
+      section.classList.remove('hidden');
 
-    // Share & Export for LINE /旅伴
-    function openShareModal() {
-      const total = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
-      const mode = document.getElementById('roundingMode').value;
-      let perPerson = 0;
-      if (peopleCount > 0 && total > 0) {
-        const raw = total / peopleCount;
-        perPerson = mode === 'round' ? Math.round(raw) : (mode === 'ceil' ? Math.ceil(raw) : (mode === 'floor' ? Math.floor(raw) : Math.round(raw*10)/10));
-      }
+      const chartDayLabel = document.getElementById('chartDayLabel');
+      chartDayLabel.textContent = state.currentDayFilter === 0 ? '全部天數' : `Day ${state.currentDayFilter}`;
 
-      let report = `✈️【TripSplit 旅行分帳結算報告】\n`;
-      report += `----------------------------\n`;
-      report += `👥 旅伴人數：${peopleCount} 人\n`;
-      report += `💰 總消費額：${currentCurrency} ${formatNumber(total)}\n`;
-      report += `🏷️ 每人應付：${currentCurrency} ${formatNumber(perPerson)}\n`;
-      report += `📅 結算日期：${getTodayDateString()}\n`;
-      report += `----------------------------\n`;
-      report += `📝 支出明細 (${expenses.length} 筆)：\n`;
-
-      expenses.forEach((item, index) => {
-        const cat = CATEGORIES[item.category]?.emoji || '•';
-        report += `${index + 1}. ${cat} ${item.title}：${currentCurrency} ${formatNumber(item.amount)} (${item.payer || '公費'})\n`;
+      const sums = {};
+      activeList.forEach(i => {
+        sums[i.category] = (sums[i.category] || 0) + i.amount;
       });
 
-      report += `----------------------------\n`;
-      report += `由 TripSplit 自動試算生成 ✨`;
+      const labels = [];
+      const data = [];
+      const colors = [];
 
-      document.getElementById('shareTextarea').value = report;
+      Object.keys(sums).forEach(key => {
+        if (sums[key] > 0) {
+          labels.push(CATEGORIES[key].name);
+          data.push(sums[key]);
+          colors.push(CATEGORIES[key].color);
+        }
+      });
+
+      chartInstance.data.labels = labels;
+      chartInstance.data.datasets[0].data = data;
+      chartInstance.data.datasets[0].backgroundColor = colors;
+      chartInstance.update();
+    }
+
+    function openShareModal() {
+      const select = document.getElementById('shareScopeSelect');
+      let options = `<option value="all">全部行程總結算 (Day 1 ~ Day ${state.totalDays})</option>`;
+      for (let d = 1; d <= state.totalDays; d++) {
+        options += `<option value="${d}">僅 Day ${d} 結算</option>`;
+      }
+      select.innerHTML = options;
+      select.value = state.currentDayFilter === 0 ? 'all' : state.currentDayFilter.toString();
+
+      generateShareText();
       document.getElementById('shareModal').classList.remove('hidden');
+      document.getElementById('shareModal').classList.add('flex');
+    }
+
+    function generateShareText() {
+      const scope = document.getElementById('shareScopeSelect').value;
+      let targetExpenses = [];
+      let headerTitle = '';
+
+      if (scope === 'all') {
+        targetExpenses = state.expenses;
+        headerTitle = `✈️【旅行記帳・全行程結算清單】`;
+      } else {
+        const d = parseInt(scope);
+        targetExpenses = state.expenses.filter(i => i.day === d);
+        headerTitle = `✈️【旅行記帳・Day ${d} 當日結算清單】`;
+      }
+
+      const total = targetExpenses.reduce((sum, item) => sum + item.amount, 0);
+      let perPerson = total / (state.members || 1);
+      if (state.roundMode === 'ceil') perPerson = Math.ceil(perPerson);
+      else if (state.roundMode === 'floor') perPerson = Math.floor(perPerson);
+      else if (state.roundMode === 'round') perPerson = Math.round(perPerson);
+      else perPerson = perPerson.toFixed(1);
+
+      let text = `${headerTitle}\n`;
+      text += `---------------------------\n`;
+      text += `💰 結算總額：${state.currency} ${total.toLocaleString()}\n`;
+      text += `👥 分攤人數：${state.members} 人\n`;
+      text += `👉 每人應付：${state.currency} ${perPerson.toLocaleString()}\n`;
+      text += `---------------------------\n`;
+      text += `📋 詳細消費明細：\n`;
+
+      if (targetExpenses.length === 0) {
+        text += `(尚無支出記錄)\n`;
+      } else {
+        if (scope === 'all') {
+          for (let d = 1; d <= state.totalDays; d++) {
+            const dayItems = targetExpenses.filter(i => i.day === d);
+            if (dayItems.length > 0) {
+              const daySubtotal = dayItems.reduce((s, i) => s + i.amount, 0);
+              text += `\n【Day ${d}】(小計: ${state.currency} ${daySubtotal.toLocaleString()})\n`;
+              dayItems.forEach((item, idx) => {
+                const cat = CATEGORIES[item.category] || CATEGORIES.other;
+                text += `  • [${cat.name}] ${item.title} : ${state.currency} ${item.amount.toLocaleString()} (${item.payer})\n`;
+              });
+            }
+          }
+        } else {
+          targetExpenses.forEach((item, idx) => {
+            const cat = CATEGORIES[item.category] || CATEGORIES.other;
+            text += `${idx + 1}. [${cat.name}] ${item.title} : ${state.currency} ${item.amount.toLocaleString()} (${item.payer})\n`;
+          });
+        }
+      }
+
+      text += `\n結算生成於 TripSplit 旅帳通`;
+      document.getElementById('shareTextPreview').value = text;
     }
 
     function closeShareModal() {
       document.getElementById('shareModal').classList.add('hidden');
+      document.getElementById('shareModal').classList.remove('flex');
     }
 
     function copyShareText() {
-      const textarea = document.getElementById('shareTextarea');
+      const textarea = document.getElementById('shareTextPreview');
       textarea.select();
-      textarea.setSelectionRange(0, 99999); // Mobile
-      try {
-        document.execCommand('copy');
-        showToast('報告已複製到剪貼簿，可貼至 LINE！', 'ph-check-circle');
-        const btn = document.getElementById('copyReportBtn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = `<i class="ph ph-check"></i><span>已成功複製！</span>`;
-        btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+      textarea.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        const btnText = document.getElementById('copyBtnText');
+        btnText.textContent = '已成功複製！';
         setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.replace('bg-blue-600', 'bg-emerald-600');
-        }, 1800);
-      } catch (err) {
-        showToast('複製失敗，請手動全選文字複製', 'ph-warning', true);
-      }
+          btnText.textContent = '一鍵複製報告';
+          closeShareModal();
+        }, 1200);
+      });
     }
 
-    // Toast Alert
-    let toastTimeout = null;
-    function showToast(msg, iconClass = 'ph-check-circle', isWarning = false) {
-      const toast = document.getElementById('toastNotification');
-      const toastMsg = document.getElementById('toastMessage');
-      const toastIcon = document.getElementById('toastIcon');
-
-      toastMsg.innerText = msg;
-      toastIcon.className = `ph ${iconClass} ${isWarning ? 'text-amber-400' : 'text-emerald-400'} text-base`;
-
-      toast.classList.remove('opacity-0', '-translate-y-20');
-      toast.classList.add('opacity-100', 'translate-y-0');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', '-translate-y-20');
-      }, 2400);
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
-
-    // App Initialization
-    window.onload = function() {
-      initData();
-    };
   </script>
 </body>
 </html>
