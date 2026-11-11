@@ -6,10 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="旅帳通">
-  <!-- 自訂 3D 黏土療癒風 iPhone 桌面專屬圖示 (Apple Touch Icon - 指向 icons/image.png) -->
-  <link rel="apple-touch-icon" href="icons/image.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/image.png">
-  <link rel="apple-touch-icon-precomposed" href="icons/image.png">
+  <!-- 自訂 3D 黏土療癒風 iPhone 桌面專屬圖示 (Apple Touch Icon) -->
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icons/image.png">
   <title>TripSplit 旅帳通 - 日系手帳・多日行程分帳</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -96,39 +96,43 @@
       border-top: 1.5px dashed var(--border-dashed);
     }
 
-    /* UI-01 3D 黏土療癒風圖示容器 (適配 icons/ 實體黏土圖檔、圓角 18-22px、柔和立體邊框與陰影) */
+    /* UI-01 3D 黏土療癒風圖示容器 (純去背無框、直接浮動呈現 3D 黏土實體、微立體陰影) */
     .clay-icon {
-      border-radius: 20px;
-      background-color: #FFFFFF;
-      border: 1.5px solid var(--border-hairline);
-      box-shadow: 
-        0 6px 14px -2px rgba(101, 78, 67, 0.12),
-        0 2px 5px -1px rgba(101, 78, 67, 0.06);
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible !important;
       position: relative;
     }
 
     .clay-icon-sm {
-      border-radius: 14px;
-      background-color: #FFFFFF;
-      border: 1px solid var(--border-hairline);
-      box-shadow: 
-        0 4px 10px -1px rgba(101, 78, 67, 0.11);
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible !important;
+      position: relative;
     }
 
     .clay-icon img,
     .clay-icon-sm img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
+      mix-blend-mode: multiply;
+      filter: drop-shadow(0 4px 6px rgba(101, 78, 67, 0.16));
+      transition: transform 0.15s ease;
+    }
+
+    .clay-cat-btn:hover .clay-icon-sm img,
+    .clay-cat-btn.active .clay-icon-sm img {
+      transform: scale(1.12);
     }
 
     /* UI-01 3D 黏土分類快選便當格按鈕 */
@@ -425,27 +429,27 @@
               <span class="block text-[14px] text-[#6E6559] font-bold mb-2">點選 3D 黏土分類圖示：</span>
               <div id="categoryClayGrid" class="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 <button type="button" onclick="chooseCategory('food')" data-cat="food" class="btn-press clay-cat-btn active p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image7.png" alt="餐飲"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image7.png" alt="餐飲"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">餐飲</span>
                 </button>
                 <button type="button" onclick="chooseCategory('traffic')" data-cat="traffic" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image8.png" alt="交通"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image8.png" alt="交通"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">交通</span>
                 </button>
                 <button type="button" onclick="chooseCategory('hotel')" data-cat="hotel" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image9.png" alt="住宿"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image9.png" alt="住宿"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">住宿</span>
                 </button>
                 <button type="button" onclick="chooseCategory('ticket')" data-cat="ticket" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image10.png" alt="門票娛樂"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image10.png" alt="門票娛樂"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">門票娛樂</span>
                 </button>
                 <button type="button" onclick="chooseCategory('shopping')" data-cat="shopping" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image11.png" alt="購物"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image11.png" alt="購物"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">購物</span>
                 </button>
                 <button type="button" onclick="chooseCategory('other')" data-cat="other" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image12.png" alt="其他"></span>
+                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image12.png" alt="其他"></span>
                   <span class="text-[14px] font-bold text-[#4D463C]">其他</span>
                 </button>
               </div>
