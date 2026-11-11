@@ -137,8 +137,8 @@
 
     /* UI-01 3D 黏土分類快選便當格按鈕 */
     .clay-cat-btn {
-      min-height: 68px;
-      border-radius: 16px;
+      min-height: 72px;
+      border-radius: 18px;
       background-color: var(--bg-bento-sub);
       border: 1.5px solid var(--border-hairline);
       transition: all 0.15s ease;
@@ -146,7 +146,10 @@
     .clay-cat-btn.active {
       background-color: #EEF2E8;
       border-color: var(--herbal-deep);
-      box-shadow: 0 0 0 2px rgba(100, 114, 81, 0.22), 0 4px 10px rgba(100, 114, 81, 0.12);
+      box-shadow: 0 0 0 2px rgba(100, 114, 81, 0.22), 0 6px 14px rgba(100, 114, 81, 0.12);
+    }
+    .clay-cat-btn.active .cat-title {
+      color: var(--herbal-deep) !important;
     }
 
     /* UI-01 3D 黏土圓形互動按鈕 (44x44px 觸控熱區) */
@@ -233,7 +236,7 @@
     <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center space-x-3">
         <!-- UI-01 3D 黏土療癒風錢包主角圖示 (icons/image.png) -->
-        <div class="w-12 h-12 clay-icon flex-shrink-0">
+        <div class="w-14 h-14 clay-icon flex-shrink-0">
           <img src="icons/image.png" alt="TripSplit 旅帳通錢包圖示">
         </div>
         <div>
@@ -424,33 +427,51 @@
               </div>
             </div>
 
-            <!-- UI-01 3D 黏土六大分類快選便當格 (icons/image7.png ~ image12.png 搭配完整文字標籤) -->
+            <!-- UI-01 3D 黏土六大分類快選 Bento 卡片 (參考大圖示無框浮動呈現，圖示放大至 56px 滿版無邊框) -->
             <div>
-              <span class="block text-[14px] text-[#6E6559] font-bold mb-2">點選 3D 黏土分類圖示：</span>
-              <div id="categoryClayGrid" class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                <button type="button" onclick="chooseCategory('food')" data-cat="food" class="btn-press clay-cat-btn active p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image7.png" alt="餐飲"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">餐飲</span>
+              <span class="block text-[15px] text-[#4D463C] font-bold mb-2.5">點選 3D 黏土分類圖示：</span>
+              <div id="categoryClayGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <button type="button" onclick="chooseCategory('food')" data-cat="food" class="btn-press clay-cat-btn active p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image7.png" alt="餐飲"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">餐飲</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">拉麵・美食咖啡</div>
+                  </div>
                 </button>
-                <button type="button" onclick="chooseCategory('traffic')" data-cat="traffic" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image8.png" alt="交通"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">交通</span>
+                <button type="button" onclick="chooseCategory('traffic')" data-cat="traffic" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image8.png" alt="交通"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">交通</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">新幹線・電車乘車</div>
+                  </div>
                 </button>
-                <button type="button" onclick="chooseCategory('hotel')" data-cat="hotel" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image9.png" alt="住宿"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">住宿</span>
+                <button type="button" onclick="chooseCategory('hotel')" data-cat="hotel" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image9.png" alt="住宿"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">住宿</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">溫泉飯店・旅宿</div>
+                  </div>
                 </button>
-                <button type="button" onclick="chooseCategory('ticket')" data-cat="ticket" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image10.png" alt="門票娛樂"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">門票娛樂</span>
+                <button type="button" onclick="chooseCategory('ticket')" data-cat="ticket" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image10.png" alt="門票娛樂"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">門票娛樂</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">景點票券・遊樂體驗</div>
+                  </div>
                 </button>
-                <button type="button" onclick="chooseCategory('shopping')" data-cat="shopping" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image11.png" alt="購物"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">購物</span>
+                <button type="button" onclick="chooseCategory('shopping')" data-cat="shopping" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image11.png" alt="購物"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">購物</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">伴手禮・藥妝百貨</div>
+                  </div>
                 </button>
-                <button type="button" onclick="chooseCategory('other')" data-cat="other" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
-                  <span class="w-12 h-12 clay-icon-sm"><img src="icons/image12.png" alt="其他"></span>
-                  <span class="text-[14px] font-bold text-[#4D463C]">其他</span>
+                <button type="button" onclick="chooseCategory('other')" data-cat="other" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
+                  <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image12.png" alt="其他"></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">其他</div>
+                    <div class="text-[12px] text-[#6E6559] font-medium truncate">雜支・行李保險</div>
+                  </div>
                 </button>
               </div>
             </div>
