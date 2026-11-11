@@ -6,35 +6,213 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="旅帳通">
-    <!-- 自訂日式手繪質感 iPhone 桌面專屬圖示 (Apple Touch Icon - iOS 標準 PNG 格式) -->
-  <link rel="apple-touch-icon" href="data:image/png;base64,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">
-  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
-  <link rel="apple-touch-icon-precomposed" href="data:image/png;base64,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">
-  <link rel="icon" type="image/png" href="data:image/png;base64,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">
-  <title>TripSplit 旅帳通 - 旅行記帳與分帳</title>
+  <!-- 自訂 3D 黏土療癒風 iPhone 桌面專屬圖示 (Apple Touch Icon - 指向 icons/image.png) -->
+  <link rel="apple-touch-icon" href="icons/image.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/image.png">
+  <link rel="apple-touch-icon-precomposed" href="icons/image.png">
+  <link rel="icon" type="image/png" href="icons/image.png">
+  <title>TripSplit 旅帳通 - 日系手帳・多日行程分帳</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* ==========================================================================
+       我的 Web App UI 設計師 V1.0 — 複合式設計系統
+       1. 主視覺：UI-03｜日系留白手帳風
+          - 柔白紙感底色 #FAF6ED、草本綠 #A3AE8C (文字強化深草綠 #647251)、暖卡其 #D2B79A、深褐主文字 #4D463C
+          - 輕紙張紋理、大留白、手帳細虛線與紙膠帶標籤點綴
+       2. 輔助版面：UI-02｜Bento 便當格
+          - 14–20px 層次圓角、規整間距 (8/12/16/24px)、手機單欄與雙欄 KPI 混合、桌面漸進擴展
+       3. 圖示系統：UI-01｜3D 黏土療癒風
+          - 20–24px 圓潤霧面黏土容器、45度微俯視暖光雙層立體陰影、保留完整文字標籤不取代文字
+       4. 全域核心規範：
+          - 繁體中文系統字體優先、大字體舒適閱讀 (內文 16–18px、標題 24–30px)
+          - iPhone 單欄優先、所有可點擊元件最小觸控目標 ≥ 44×44px、Safe Area 適配、支援減少動態偏好
+       ========================================================================== */
+    :root {
+      --bg-paper: #FAF6ED;       /* UI-03 柔白紙感底色 */
+      --bg-bento-sub: #F6F3EB;   /* UI-02 燕麥淺底 */
+      --card-surface: #FFFFFF;   /* 卡片純白表面 */
+      --herbal-base: #A3AE8C;    /* UI-03 草本綠 */
+      --herbal-deep: #647251;    /* 高對比草本深綠 */
+      --herbal-soft: #EEF2E8;
+      --khaki-base: #D2B79A;     /* UI-03 暖卡其 */
+      --clay-peach: #DDB5A2;     /* UI-01 暖粉橘 */
+      --text-primary: #4D463C;   /* UI-03 主文字深褐 */
+      --text-secondary: #6E6559; /* 次要文字 */
+      --border-hairline: #E6DEC8;
+      --border-dashed: #D5C7B2;
+    }
+
     body {
+      background-color: var(--bg-paper);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
+      /* UI-03 極輕手帳方格點陣紙感 */
+      background-image: 
+        radial-gradient(rgba(163, 174, 140, 0.22) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(250, 246, 237, 0.96) 0%, rgba(246, 243, 235, 0.96) 100%);
+      background-size: 18px 18px, 100% 100%;
+    }
+
+    /* UI-03 紙感頂部導覽列 */
+    .techo-header {
+      background: rgba(250, 246, 237, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    /* UI-02 Bento 便當格主卡片 (圓角 20px + 細邊框 + 柔和紙張層次) */
+    .bento-box {
+      background-color: var(--card-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 20px;
+      box-shadow: 0 6px 20px -4px rgba(77, 70, 60, 0.05), 0 2px 6px -1px rgba(77, 70, 60, 0.03);
+    }
+
+    /* UI-02 Bento 內部次級便當格 (圓角 16px) */
+    .bento-cell {
+      background-color: var(--bg-bento-sub);
+      border: 1px solid rgba(210, 183, 154, 0.38);
+      border-radius: 16px;
+    }
+
+    /* UI-03 手帳紙膠帶標籤 (Washi Tape) */
+    .washi-badge {
+      background: linear-gradient(135deg, rgba(210, 183, 154, 0.28) 0%, rgba(163, 174, 140, 0.22) 100%);
+      border-left: 2.5px dashed var(--khaki-base);
+      border-right: 2.5px dashed var(--khaki-base);
+      color: var(--text-primary);
+    }
+
+    /* UI-03 手帳細分隔虛線 */
+    .techo-divider {
+      border-top: 1.5px dashed var(--border-dashed);
+    }
+
+    /* UI-01 3D 黏土療癒風圖示容器 (適配 icons/ 實體黏土圖檔、圓角 18-22px、柔和立體邊框與陰影) */
+    .clay-icon {
+      border-radius: 20px;
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--border-hairline);
+      box-shadow: 
+        0 6px 14px -2px rgba(101, 78, 67, 0.12),
+        0 2px 5px -1px rgba(101, 78, 67, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .clay-icon-sm {
+      border-radius: 14px;
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      box-shadow: 
+        0 4px 10px -1px rgba(101, 78, 67, 0.11);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .clay-icon img,
+    .clay-icon-sm img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* UI-01 3D 黏土分類快選便當格按鈕 */
+    .clay-cat-btn {
+      min-height: 68px;
+      border-radius: 16px;
+      background-color: var(--bg-bento-sub);
+      border: 1.5px solid var(--border-hairline);
+      transition: all 0.15s ease;
+    }
+    .clay-cat-btn.active {
+      background-color: #EEF2E8;
+      border-color: var(--herbal-deep);
+      box-shadow: 0 0 0 2px rgba(100, 114, 81, 0.22), 0 4px 10px rgba(100, 114, 81, 0.12);
+    }
+
+    /* UI-01 3D 黏土圓形互動按鈕 (44x44px 觸控熱區) */
+    .clay-round-btn {
+      min-width: 44px;
+      min-height: 44px;
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+        inset -2px -2px 4px rgba(101, 78, 67, 0.16),
+        0 4px 10px rgba(101, 78, 67, 0.12);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    /* UI-01 3D 黏土主要行動大按鈕 (高度 >= 50px，圓角 20px) */
+    .clay-action-btn {
+      min-height: 50px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #8B9B74 0%, #647251 100%);
+      color: #FFFFFF;
+      box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.42),
+        inset -2px -2px 5px rgba(45, 55, 34, 0.28),
+        0 6px 14px rgba(100, 114, 81, 0.28);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    /* 手帳表單輸入框 (內文 16-18px，最小觸控高度 46px) */
+    .techo-field {
+      min-height: 46px;
+      font-size: 16px;
+      background-color: var(--bg-bento-sub);
+      border: 1.5px solid var(--border-hairline);
+      border-radius: 14px;
+      color: var(--text-primary);
+      transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .techo-field:focus {
+      outline: none;
+      background-color: #FFFFFF;
+      border-color: var(--herbal-deep);
+      box-shadow: 0 0 0 3px rgba(163, 174, 140, 0.28);
+    }
+
+    /* 按壓微互動與無障礙減少動態支援 */
+    .btn-press {
+      transition: transform 0.12s ease;
     }
     .btn-press:active {
       transform: scale(0.96);
-      transition: transform 0.1s ease;
     }
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .btn-press:active {
+        transform: none !important;
+      }
     }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-    }
+
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -44,241 +222,344 @@
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
+<body class="antialiased min-h-screen flex flex-col justify-between select-none">
 
-  <!-- 頂部導航 -->
-  <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/80 px-4 py-3 flex items-center justify-between">
-    <div class="flex items-center space-x-2">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center text-white shadow-md shadow-amber-200">
-        <i class="fa-solid fa-wallet text-sm"></i>
+  <!-- 頂部導覽列 (UI-03 留白手帳感 + UI-01 3D 黏土主角圖示 icons/image.png) -->
+  <header class="sticky top-0 z-40 techo-header px-4 py-3">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center space-x-3">
+        <!-- UI-01 3D 黏土療癒風錢包主角圖示 (icons/image.png) -->
+        <div class="w-12 h-12 clay-icon flex-shrink-0">
+          <img src="icons/image.png" alt="TripSplit 旅帳通錢包圖示">
+        </div>
+        <div>
+          <!-- 標題 24px 大字體規範 -->
+          <h1 class="text-[24px] font-extrabold text-[#4D463C] leading-tight tracking-tight">TripSplit 旅帳通</h1>
+          <p class="text-[14px] text-[#6E6559] font-medium">日系旅行手帳・多日分帳本</p>
+        </div>
       </div>
-      <div>
-        <h1 class="text-lg font-bold text-slate-900 leading-tight">TripSplit 旅帳通</h1>
-        <p class="text-xs text-slate-500">旅行記帳・多日行程・分帳</p>
+
+      <!-- 頂部操作按鈕組 (皆符合 ≥ 44×44px 觸控標準，且保留完整文字標籤) -->
+      <div class="flex items-center space-x-2">
+        <button onclick="openShareModal()" class="btn-press min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#EEF2E8] hover:bg-[#E3EAD9] text-[#4F5D3F] font-bold text-[16px] flex items-center space-x-2 border border-[#CFD9C2] shadow-sm">
+          <span class="w-7 h-7 clay-icon-sm flex-shrink-0">
+            <img src="icons/image6.png" alt="結算分享">
+          </span>
+          <span>LINE 分享</span>
+        </button>
+        <button onclick="clearAllData()" class="btn-press min-w-[44px] min-h-[44px] px-2.5 py-2 rounded-2xl bg-[#F6F3EB] hover:bg-[#F5E6E0] text-[#6E6559] hover:text-[#B8563E] border border-[#E6DEC8] flex items-center space-x-1 text-[14px] font-bold" title="清空全部資料">
+          <i class="fa-regular fa-trash-can text-base"></i>
+          <span class="hidden sm:inline">重置</span>
+        </button>
       </div>
-    </div>
-    <div class="flex items-center space-x-2">
-      <button onclick="openShareModal()" class="btn-press px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 font-medium text-sm flex items-center space-x-1 border border-emerald-200">
-        <i class="fa-brands fa-line text-sm"></i>
-        <span>LINE 分享</span>
-      </button>
-      <button onclick="clearAllData()" class="btn-press p-2 rounded-lg text-slate-400 hover:text-rose-500" title="清空全部資料">
-        <i class="fa-regular fa-trash-can text-sm"></i>
-      </button>
     </div>
   </header>
 
-  <!-- 主內容區 -->
-  <main class="flex-1 max-w-md w-full mx-auto p-4 space-y-4 pb-24">
+  <!-- 主內容區：iPhone 單欄優先，iPad/桌面漸進擴展為 Bento 雙欄網格 -->
+  <main class="flex-1 max-w-md md:max-w-4xl w-full mx-auto px-4 py-5 space-y-5 pb-28">
 
-    <!-- 多日行程選擇導航標籤 (Day Tabs) -->
-    <div class="space-y-1.5">
-      <div class="flex items-center justify-between px-1">
-        <div class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1">
-          <i class="fa-regular fa-calendar-days text-indigo-500"></i>
-          <span>行程天數選擇</span>
+    <!-- 區塊 1：多日行程手帳索引標籤 (Day Tabs Bento Bar + icons/image2.png) -->
+    <section class="bento-box p-4 space-y-3" aria-label="行程天數切換">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center space-x-2.5">
+          <!-- UI-01 3D 黏土桌曆圖示 (icons/image2.png) -->
+          <span class="w-10 h-10 clay-icon-sm flex-shrink-0">
+            <img src="icons/image2.png" alt="行程天數桌曆圖示">
+          </span>
+          <span class="text-[18px] font-bold text-[#4D463C]">行程天數索引</span>
         </div>
-        <div class="flex items-center space-x-1.5">
-          <button onclick="addDay()" class="btn-press px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 text-xs font-semibold border border-indigo-200 py-1 px-2.5 hover:bg-indigo-100 flex items-center space-x-1">
-            <i class="fa-solid fa-plus text-[10px]"></i>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="addDay()" class="btn-press min-h-[44px] px-3.5 py-2 rounded-xl bg-[#EEF2E8] hover:bg-[#E2E9D8] text-[#4F5D3F] text-[15px] font-bold border border-[#CFD9C2] flex items-center space-x-1.5">
+            <i class="fa-solid fa-plus text-xs"></i>
             <span>增加天數</span>
           </button>
-          <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press px-2 py-0.5 rounded-md bg-rose-50 text-rose-600 text-xs font-semibold border border-rose-200 py-1 px-2.5 hover:bg-rose-100 hidden">
+          <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press min-h-[44px] px-3.5 py-2 rounded-xl bg-[#F9EAE4] hover:bg-[#F4DCD3] text-[#B5533C] text-[15px] font-bold border border-[#EBCAC0] hidden">
             刪除本天
           </button>
         </div>
       </div>
-      
-      <!-- 天數滑動列 -->
-      <div id="dayTabsContainer" class="flex space-x-2 overflow-x-auto py-1 no-scrollbar">
-        <!-- 動態渲染天數標籤 -->
+
+      <!-- 天數滑動列 (手帳書籤感) -->
+      <div id="dayTabsContainer" class="flex space-x-2.5 overflow-x-auto pt-1 pb-1 no-scrollbar">
+        <!-- 由 JS 動態渲染天數標籤 -->
       </div>
-    </div>
+    </section>
 
-    <!-- 儀表板卡片 -->
-    <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-5 text-white shadow-xl shadow-slate-300 relative overflow-hidden">
-      <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+    <!-- Bento 主網格：iPhone 單欄垂直流暢閱讀，桌面版左右雙欄便當格 -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
 
-      <!-- 統計範疇與幣別設定 -->
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center space-x-1.5">
-          <span id="scopeBadge" class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-xs px-2.5 py-1 rounded-full font-medium">當前視角：全部天數</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <select id="currencySelect" onchange="changeCurrency(this.value)" class="bg-white/10 text-white text-sm px-3 py-1.5 rounded-full outline-none border border-white/20">
-            <option value="NT$" class="text-slate-800">NT$ (TWD)</option>
-            <option value="¥" class="text-slate-800">¥ (JPY)</option>
-            <option value="$" class="text-slate-800">$ (USD)</option>
-            <option value="€" class="text-slate-800">€ (EUR)</option>
-            <option value="₩" class="text-slate-800">₩ (KRW)</option>
-            <option value="HK$" class="text-slate-800">HK$</option>
-            <option value="฿" class="text-slate-800">฿ (THB)</option>
-          </select>
-        </div>
-      </div>
+      <!-- 左側／上方欄：Bento KPI 總覽便當大卡 + 新增支出手帳卡 -->
+      <div class="md:col-span-6 space-y-5">
 
-      <!-- 總金額 -->
-      <div class="mb-4">
-        <div class="text-xs text-slate-300 font-medium mb-1" id="totalAmountLabel">總累計支出</div>
-        <div class="text-4xl font-extrabold tracking-tight">
-          <span id="currSymbol" class="text-2xl text-indigo-300 mr-1">NT$</span>
-          <span id="totalAmount">0</span>
-        </div>
-      </div>
+        <!-- 區塊 2：UI-02 Bento KPI 總覽大卡 (融合 UI-03 留白手帳紙感) -->
+        <section class="bento-box p-5 relative overflow-hidden" aria-label="支出分帳總覽">
+          <!-- 頂部視角紙膠帶與幣別切換 -->
+          <div class="flex justify-between items-center gap-2 mb-4">
+            <span id="scopeBadge" class="washi-badge text-[15px] px-3 py-1.5 rounded-lg font-bold">
+              當前視角：全部天數總覽
+            </span>
 
-      <!-- 人數與每人應付 -->
-      <div class="grid grid-cols-2 gap-3 pt-3 border-t border-white/10">
-        <!-- 旅伴人數 -->
-        <div class="bg-white/5 rounded-2xl p-2.5 flex flex-col justify-between border border-white/5">
-          <span class="text-xs text-slate-200 font-medium mb-1.5">分攤人數</span>
-          <div class="flex items-center justify-between">
-            <button onclick="updateMembers(-1)" class="btn-press w-8 h-8 rounded-full text-base bg-white/10 hover:bg-white/20 flex items-center justify-center text-sm font-bold text-white">−</button>
-            <span id="memberCount" class="text-xl font-bold">2</span>
-            <button onclick="updateMembers(1)" class="btn-press w-8 h-8 rounded-full text-base bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center text-sm font-bold text-white">+</button>
-          </div>
-        </div>
-
-        <!-- 每人應付 -->
-        <div class="bg-white/5 rounded-2xl p-2.5 flex flex-col justify-between border border-white/5">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs text-slate-200 font-medium">每人應付</span>
-            <select id="roundMode" onchange="renderDashboard()" class="bg-transparent text-xs text-indigo-300 outline-none">
-              <option value="round" class="text-slate-800">四捨五入</option>
-              <option value="ceil" class="text-slate-800">無條件進位</option>
-              <option value="floor" class="text-slate-800">無條件捨去</option>
-              <option value="exact" class="text-slate-800">保留小數</option>
-            </select>
-          </div>
-          <div class="text-2xl font-bold text-amber-300 truncate">
-            <span id="currSymbolSub" class="text-sm mr-1">NT$</span>
-            <span id="perPersonAmount">0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 記帳輸入卡片 -->
-    <div class="glass-card rounded-2xl p-4 shadow-sm border border-slate-200/80">
-      <div class="flex justify-between items-center mb-3">
-        <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1.5">
-          <i class="fa-solid fa-pen-to-square text-indigo-500"></i>
-          <span>新增支出</span>
-        </h2>
-        <span id="formDayBadge" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100">
-          歸屬：Day 1
-        </span>
-      </div>
-
-      <form id="expenseForm" onsubmit="addExpense(event)" class="space-y-3">
-        <!-- 歸屬行程天數選擇 -->
-        <div>
-          <label class="block text-xs text-slate-500 font-semibold mb-1">行程天數</label>
-          <select id="inputDaySelect" class="w-full py-2.5 px-3 bg-slate-50 rounded-xl text-sm font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            <!-- 動態生成天數選項 -->
-          </select>
-        </div>
-
-        <!-- 金額與類別 -->
-        <div class="grid grid-cols-5 gap-2">
-          <div class="col-span-3">
-            <label class="block text-xs text-slate-500 font-semibold mb-1">消費金額</label>
             <div class="relative">
-              <span id="formCurrPrefix" class="absolute left-3 top-2.5 text-sm font-bold text-slate-500">NT$</span>
-              <input type="number" id="inputAmount" step="any" inputmode="decimal" required placeholder="0" class="w-full pl-12 pr-3 py-2.5 bg-slate-50 rounded-xl text-slate-800 font-bold text-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <label for="currencySelect" class="sr-only">選擇幣別</label>
+              <select id="currencySelect" onchange="changeCurrency(this.value)" class="min-h-[44px] bg-[#F6F3EB] text-[#4D463C] text-[16px] font-bold pl-3.5 pr-8 py-2 rounded-xl outline-none border border-[#D2B79A] focus:border-[#647251] appearance-none cursor-pointer">
+                <option value="NT$">NT$ (TWD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="₩">₩ (KRW)</option>
+                <option value="HK$">HK$</option>
+                <option value="฿">฿ (THB)</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#6E6559] pointer-events-none"></i>
             </div>
           </div>
-          <div class="col-span-2">
-            <label class="block text-xs text-slate-500 font-semibold mb-1">分類</label>
-            <select id="inputCategory" class="w-full py-2.5 px-2.5 bg-slate-50 rounded-xl text-sm font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="food">🍜 餐飲</option>
-              <option value="traffic">🚅 交通</option>
-              <option value="hotel">🏨 住宿</option>
-              <option value="ticket">🎟️ 門票娛樂</option>
-              <option value="shopping">🛍️ 購物</option>
-              <option value="other">💡 其他</option>
-            </select>
+
+          <!-- 主 KPI 總額便當格 (搭配 icons/image3.png 3D 黏土口金包與金幣) -->
+          <div class="bento-cell p-4 mb-4 flex items-center justify-between gap-3">
+            <div>
+              <div class="text-[16px] text-[#6E6559] font-bold mb-1" id="totalAmountLabel">全行程累計總支出</div>
+              <!-- 標題與大金額 (30px+) -->
+              <div class="text-[32px] font-extrabold text-[#4D463C] tracking-tight leading-none flex items-baseline">
+                <span id="currSymbol" class="text-[22px] font-bold text-[#647251] mr-1.5">NT$</span>
+                <span id="totalAmount">0</span>
+              </div>
+            </div>
+            <!-- UI-01 3D 黏土口金包金幣圖示 (icons/image3.png) -->
+            <div class="w-16 h-16 clay-icon flex-shrink-0">
+              <img src="icons/image3.png" alt="總支出金幣包圖示">
+            </div>
           </div>
-        </div>
 
-        <!-- 名稱項目與付款人 -->
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-xs text-slate-500 font-semibold mb-1">品項說明</label>
-            <input type="text" id="inputTitle" required placeholder="例：晚餐居酒屋、新幹線車票" class="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-sm border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <!-- UI-02 雙欄 Bento 子卡片：分攤人數 & 每人應付 -->
+          <div class="grid grid-cols-2 gap-3 pt-4 techo-divider">
+            <!-- 左格：分攤人數 (搭配 icons/image4.png 雙熊公仔與 44x44px 按鈕) -->
+            <div class="bento-cell p-3.5 flex flex-col justify-between">
+              <div class="flex items-center space-x-2 mb-2">
+                <span class="w-8 h-8 clay-icon-sm flex-shrink-0">
+                  <img src="icons/image4.png" alt="分攤旅伴小熊圖示">
+                </span>
+                <span class="text-[16px] text-[#4D463C] font-bold">分攤人數</span>
+              </div>
+              <div class="flex items-center justify-between pt-1">
+                <button type="button" onclick="updateMembers(-1)" class="btn-press clay-round-btn bg-[#FFFFFF] text-[#4D463C] border border-[#E6DEC8]" aria-label="減少分攤人數">−</button>
+                <span id="memberCount" class="text-[24px] font-extrabold text-[#4D463C]">2</span>
+                <button type="button" onclick="updateMembers(1)" class="btn-press clay-round-btn text-white" style="background: linear-gradient(145deg, #98A882 0%, #647251 100%);" aria-label="增加分攤人數">+</button>
+              </div>
+            </div>
+
+            <!-- 右格：每人應付金額與進位方式 -->
+            <div class="bento-cell p-3.5 flex flex-col justify-between">
+              <div class="flex flex-wrap justify-between items-center gap-1 mb-1">
+                <span class="text-[16px] text-[#4D463C] font-bold">每人應付</span>
+                <select id="roundMode" onchange="renderDashboard()" class="min-h-[36px] bg-[#FFFFFF] px-2 py-1 rounded-lg border border-[#E6DEC8] text-[14px] text-[#5E6B4B] font-bold outline-none cursor-pointer" aria-label="分帳進位方式">
+                  <option value="round">四捨五入</option>
+                  <option value="ceil">無條件進位</option>
+                  <option value="floor">無條件捨去</option>
+                  <option value="exact">保留小數</option>
+                </select>
+              </div>
+              <div class="text-[26px] font-extrabold text-[#B8563E] truncate leading-tight pt-1">
+                <span id="currSymbolSub" class="text-[16px] font-bold mr-0.5">NT$</span>
+                <span id="perPersonAmount">0</span>
+              </div>
+            </div>
           </div>
-          <div>
-            <label class="block text-xs text-slate-500 font-semibold mb-1">付款人</label>
-            <input type="text" id="inputPayer" placeholder="例：公費錢包、我" value="公費錢包" class="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-sm border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </section>
+
+        <!-- 區塊 3：記帳輸入手帳卡 (UI-03 大留白表單 + icons/image5.png 皮革手帳與鋼筆) -->
+        <section class="bento-box p-5" aria-label="新增支出表單">
+          <div class="flex justify-between items-center mb-4 pb-3 techo-divider border-t-0 border-b">
+            <div class="flex items-center space-x-2.5">
+              <!-- UI-01 3D 黏土旅行手帳與鋼筆圖示 (icons/image5.png) -->
+              <span class="w-11 h-11 clay-icon-sm flex-shrink-0">
+                <img src="icons/image5.png" alt="新增支出手帳圖示">
+              </span>
+              <!-- 標題 24px 規範 -->
+              <h2 class="text-[24px] font-extrabold text-[#4D463C]">新增支出</h2>
+            </div>
+            <span id="formDayBadge" class="washi-badge text-[15px] font-bold px-3 py-1 rounded-lg">
+              歸屬：Day 1
+            </span>
           </div>
-        </div>
 
-        <button type="submit" class="btn-press w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-md shadow-indigo-100 flex items-center justify-center space-x-1.5">
-          <i class="fa-solid fa-plus text-xs"></i>
-          <span>記錄這筆開銷</span>
-        </button>
-      </form>
-    </div>
+          <form id="expenseForm" onsubmit="addExpense(event)" class="space-y-4">
+            <!-- 歸屬行程天數選擇 -->
+            <div>
+              <label for="inputDaySelect" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">行程天數</label>
+              <div class="relative">
+                <select id="inputDaySelect" class="w-full techo-field px-3.5 font-bold appearance-none cursor-pointer">
+                  <!-- 動態生成天數選項 -->
+                </select>
+                <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-[#6E6559] pointer-events-none"></i>
+              </div>
+            </div>
 
-    <!-- 分析圖表區塊 (有資料時才展開) -->
-    <div id="chartSection" class="glass-card rounded-2xl p-4 shadow-sm border border-slate-200/80 hidden">
-      <div class="flex justify-between items-center mb-2">
-        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">支出分佈（<span id="chartDayLabel">全部</span>）</h3>
-        <span id="chartTotalBadge" class="text-[10px] bg-slate-100 px-2 py-0.5 rounded-full text-slate-600 font-medium"></span>
-      </div>
-      <div class="h-44 flex items-center justify-center">
-        <canvas id="categoryChart"></canvas>
-      </div>
-    </div>
+            <!-- 金額與分類下拉選單 (Bento 雙欄比例) -->
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+              <div class="sm:col-span-3">
+                <label for="inputAmount" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">消費金額</label>
+                <div class="relative">
+                  <span id="formCurrPrefix" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[17px] font-extrabold text-[#647251]">NT$</span>
+                  <input type="number" id="inputAmount" step="any" inputmode="decimal" required placeholder="0" class="w-full techo-field pl-14 pr-3.5 font-extrabold text-[20px] text-[#4D463C]">
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="inputCategory" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">消費分類</label>
+                <div class="relative">
+                  <select id="inputCategory" onchange="syncCategoryPicker(this.value)" class="w-full techo-field px-3 font-bold appearance-none cursor-pointer">
+                    <option value="food">餐飲</option>
+                    <option value="traffic">交通</option>
+                    <option value="hotel">住宿</option>
+                    <option value="ticket">門票娛樂</option>
+                    <option value="shopping">購物</option>
+                    <option value="other">其他</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6E6559] pointer-events-none"></i>
+                </div>
+              </div>
+            </div>
 
-    <!-- 支出明細列表 -->
-    <div class="space-y-2">
-      <div class="flex justify-between items-center px-1">
-        <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider">
-          消費明細 (<span id="recordCount">0</span>)
-        </h3>
-        <select id="filterCategory" onchange="renderExpenses()" class="bg-transparent text-xs text-indigo-600 font-bold outline-none">
-          <option value="all">全部分類</option>
-          <option value="food">🍜 餐飲</option>
-          <option value="traffic">🚅 交通</option>
-          <option value="hotel">🏨 住宿</option>
-          <option value="ticket">🎟️ 門票娛樂</option>
-          <option value="shopping">🛍️ 購物</option>
-          <option value="other">💡 其他</option>
-        </select>
+            <!-- UI-01 3D 黏土六大分類快選便當格 (icons/image7.png ~ image12.png 搭配完整文字標籤) -->
+            <div>
+              <span class="block text-[14px] text-[#6E6559] font-bold mb-2">點選 3D 黏土分類圖示：</span>
+              <div id="categoryClayGrid" class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                <button type="button" onclick="chooseCategory('food')" data-cat="food" class="btn-press clay-cat-btn active p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image7.png" alt="餐飲"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">餐飲</span>
+                </button>
+                <button type="button" onclick="chooseCategory('traffic')" data-cat="traffic" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image8.png" alt="交通"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">交通</span>
+                </button>
+                <button type="button" onclick="chooseCategory('hotel')" data-cat="hotel" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image9.png" alt="住宿"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">住宿</span>
+                </button>
+                <button type="button" onclick="chooseCategory('ticket')" data-cat="ticket" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image10.png" alt="門票娛樂"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">門票娛樂</span>
+                </button>
+                <button type="button" onclick="chooseCategory('shopping')" data-cat="shopping" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image11.png" alt="購物"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">購物</span>
+                </button>
+                <button type="button" onclick="chooseCategory('other')" data-cat="other" class="btn-press clay-cat-btn p-2 flex flex-col items-center justify-center space-y-1">
+                  <span class="w-10 h-10 clay-icon-sm"><img src="icons/image12.png" alt="其他"></span>
+                  <span class="text-[14px] font-bold text-[#4D463C]">其他</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 品項說明與付款人 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="inputTitle" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">品項說明</label>
+                <input type="text" id="inputTitle" required placeholder="例：宇治抹茶甜點、新幹線" class="w-full techo-field px-3.5 text-[16px]">
+              </div>
+              <div>
+                <label for="inputPayer" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">付款人</label>
+                <input type="text" id="inputPayer" placeholder="例：公費錢包、我" value="公費錢包" class="w-full techo-field px-3.5 text-[16px]">
+              </div>
+            </div>
+
+            <!-- UI-01 3D 黏土主按鈕 (≥ 50px 觸控高度) -->
+            <button type="submit" class="btn-press w-full clay-action-btn text-[18px] font-extrabold flex items-center justify-center space-x-2">
+              <i class="fa-solid fa-plus text-base"></i>
+              <span>寫入旅行手帳</span>
+            </button>
+          </form>
+        </section>
+
       </div>
 
-      <div id="expenseList" class="space-y-2">
-        <!-- 動態渲染明細 -->
+      <!-- 右側／下方欄：分類統計便當卡 + 縱向手帳消費明細列表 -->
+      <div class="md:col-span-6 space-y-5">
+
+        <!-- 區塊 4：分析圖表 Bento 區塊 (搭配 icons/image6.png 3D 黏土圓餅圖圖示) -->
+        <section id="chartSection" class="bento-box p-5 hidden" aria-label="支出比例圖表">
+          <div class="flex justify-between items-center mb-3">
+            <div class="flex items-center space-x-2.5">
+              <span class="w-10 h-10 clay-icon-sm flex-shrink-0">
+                <img src="icons/image6.png" alt="支出分佈圓餅圖示">
+              </span>
+              <h3 class="text-[18px] font-extrabold text-[#4D463C]">支出分佈（<span id="chartDayLabel">全部</span>）</h3>
+            </div>
+            <span id="chartTotalBadge" class="text-[14px] bg-[#F6F3EB] px-3 py-1 rounded-full text-[#6E6559] font-bold"></span>
+          </div>
+          <div class="h-48 flex items-center justify-center">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </section>
+
+        <!-- 區塊 5：UI-03 縱向手帳筆記卡明細列表 (搭配 icons/image12.png 3D 黏土旅行箱圖示) -->
+        <section class="bento-box p-5 space-y-4" aria-label="消費明細清單">
+          <div class="flex justify-between items-center gap-2 pb-3 techo-divider border-t-0 border-b">
+            <div class="flex items-center space-x-2.5">
+              <!-- UI-01 3D 黏土旅行箱圖示 (icons/image12.png) -->
+              <span class="w-11 h-11 clay-icon-sm flex-shrink-0">
+                <img src="icons/image12.png" alt="手帳明細旅行箱圖示">
+              </span>
+              <h2 class="text-[24px] font-extrabold text-[#4D463C]">
+                手帳明細 <span class="text-[16px] font-bold text-[#647251] bg-[#EEF2E8] px-2.5 py-0.5 rounded-full ml-1" id="recordCount">0</span>
+              </h2>
+            </div>
+
+            <!-- 分類篩選器 (≥ 44px 觸控高度) -->
+            <div class="relative">
+              <label for="filterCategory" class="sr-only">篩選分類</label>
+              <select id="filterCategory" onchange="renderExpenses()" class="min-h-[44px] bg-[#F6F3EB] border border-[#E6DEC8] rounded-xl pl-3 pr-8 py-2 text-[16px] text-[#4D463C] font-bold outline-none cursor-pointer appearance-none">
+                <option value="all">全部分類</option>
+                <option value="food">餐飲</option>
+                <option value="traffic">交通</option>
+                <option value="hotel">住宿</option>
+                <option value="ticket">門票娛樂</option>
+                <option value="shopping">購物</option>
+                <option value="other">其他</option>
+              </select>
+              <i class="fa-solid fa-filter absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#647251] pointer-events-none"></i>
+            </div>
+          </div>
+
+          <div id="expenseList" class="space-y-3">
+            <!-- 動態渲染手帳明細卡片 -->
+          </div>
+        </section>
+
       </div>
+
     </div>
 
   </main>
 
-  <!-- LINE 分享報告 Modal -->
-  <div id="shareModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl flex flex-col max-h-[85vh]">
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center space-x-2">
-          <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">
-            <i class="fa-brands fa-line"></i>
+  <!-- LINE 分享報告 Modal (UI-03 日系紙感對話框 + icons/image6.png 3D 黏土結算卷軸圖示) -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-[#4D463C]/55 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="bento-box bg-[#FAF6ED] w-full max-w-md p-6 shadow-2xl flex flex-col max-h-[88vh] border-2 border-[#E6DEC8]">
+      <div class="flex justify-between items-center mb-4 pb-3 techo-divider border-t-0 border-b">
+        <div class="flex items-center space-x-3">
+          <div class="w-11 h-11 clay-icon-sm flex-shrink-0">
+            <img src="icons/image6.png" alt="LINE 旅帳結算報告圖示">
           </div>
-          <h4 class="font-bold text-slate-900 text-base">LINE 請款與行程結算報告</h4>
+          <h4 id="shareModalTitle" class="font-extrabold text-[#4D463C] text-[22px]">LINE 旅帳結算報告</h4>
         </div>
-        <button onclick="closeShareModal()" class="text-slate-400 hover:text-slate-600 p-1">
-          <i class="fa-solid fa-xmark text-sm"></i>
+        <button onclick="closeShareModal()" class="btn-press min-w-[44px] min-h-[44px] rounded-xl bg-[#F6F3EB] text-[#6E6559] hover:text-[#4D463C] flex items-center justify-center border border-[#E6DEC8]" aria-label="關閉視窗">
+          <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-      <div class="flex items-center space-x-2 mb-2">
-        <span class="text-xs text-slate-600 font-semibold">匯出範圍：</span>
-        <select id="shareScopeSelect" onchange="generateShareText()" class="text-xs bg-slate-100 border border-slate-200 rounded-lg px-2 py-1 outline-none text-slate-700 font-medium">
+
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <label for="shareScopeSelect" class="text-[16px] text-[#4D463C] font-bold">結算範圍：</label>
+        <select id="shareScopeSelect" onchange="generateShareText()" class="flex-1 min-h-[44px] text-[16px] bg-[#FFFFFF] border border-[#D2B79A] rounded-xl px-3 py-2 outline-none text-[#4D463C] font-bold">
           <option value="all">全部行程總結算</option>
           <!-- 動態注入各日選項 -->
         </select>
       </div>
-      <textarea id="shareTextPreview" readonly class="w-full flex-1 p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono text-slate-700 leading-relaxed outline-none resize-none mb-3"></textarea>
-      <div class="flex space-x-2">
-        <button onclick="copyShareText()" class="btn-press flex-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold flex items-center justify-center space-x-1 shadow-md shadow-emerald-100">
-          <i class="fa-regular fa-copy"></i>
+
+      <textarea id="shareTextPreview" readonly class="w-full flex-1 min-h-[220px] p-4 bg-[#FFFFFF] border border-[#E6DEC8] rounded-2xl text-[16px] text-[#4D463C] leading-relaxed outline-none resize-none mb-4 shadow-inner"></textarea>
+
+      <div class="flex space-x-3">
+        <button onclick="copyShareText()" class="btn-press flex-1 clay-action-btn text-[18px] font-extrabold flex items-center justify-center space-x-2">
+          <i class="fa-regular fa-copy text-lg"></i>
           <span id="copyBtnText">一鍵複製報告</span>
         </button>
       </div>
@@ -286,14 +567,70 @@
   </div>
 
   <script>
+    // UI-01 3D 黏土療癒色票、icons/ 圖檔路徑與 UI-03 日系草本手帳分類設定
     const CATEGORIES = {
-      food: { name: '餐飲', icon: '🍜', color: '#f97316' },
-      traffic: { name: '交通', icon: '🚅', color: '#0ea5e9' },
-      hotel: { name: '住宿', icon: '🏨', color: '#8b5cf6' },
-      ticket: { name: '門票娛樂', icon: '🎟️', color: '#ec4899' },
-      shopping: { name: '購物', icon: '🛍️', color: '#10b981' },
-      other: { name: '其他', icon: '💡', color: '#64748b' }
+      food: { 
+        name: '餐飲', 
+        icon: '🍜', 
+        img: 'icons/image7.png',
+        color: '#D89B84',
+        clayBg: 'linear-gradient(145deg, #F9E5DC 0%, #E6BFA9 100%)'
+      },
+      traffic: { 
+        name: '交通', 
+        icon: '🚅', 
+        img: 'icons/image8.png',
+        color: '#8FA89B',
+        clayBg: 'linear-gradient(145deg, #E4EFEA 0%, #B8CFC3 100%)'
+      },
+      hotel: { 
+        name: '住宿', 
+        icon: '🏨', 
+        img: 'icons/image9.png',
+        color: '#C7A98C',
+        clayBg: 'linear-gradient(145deg, #F5ECE2 0%, #DEC6AE 100%)'
+      },
+      ticket: { 
+        name: '門票娛樂', 
+        icon: '🎟️', 
+        img: 'icons/image10.png',
+        color: '#D49BA7',
+        clayBg: 'linear-gradient(145deg, #F9E6EA 0%, #E5BDC6 100%)'
+      },
+      shopping: { 
+        name: '購物', 
+        icon: '🛍️', 
+        img: 'icons/image11.png',
+        color: '#A3AE8C',
+        clayBg: 'linear-gradient(145deg, #ECF1E4 0%, #C6D1B3 100%)'
+      },
+      other: { 
+        name: '其他', 
+        icon: '💡', 
+        img: 'icons/image12.png',
+        color: '#B5A899',
+        clayBg: 'linear-gradient(145deg, #F0ECE6 0%, #D5CBBF 100%)'
+      }
     };
+
+    function chooseCategory(catKey) {
+      const catSelect = document.getElementById('inputCategory');
+      if (catSelect) {
+        catSelect.value = catKey;
+      }
+      syncCategoryPicker(catKey);
+    }
+
+    function syncCategoryPicker(catKey) {
+      const buttons = document.querySelectorAll('#categoryClayGrid [data-cat]');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-cat') === catKey) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
 
     let state = {
       currency: 'NT$',
@@ -403,10 +740,10 @@
       let tabsHtml = '';
       const isAllActive = state.currentDayFilter === 0;
       tabsHtml += `
-        <button onclick="selectDay(0)" class="btn-press px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all shadow-sm ${
+        <button onclick="selectDay(0)" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all ${
           isAllActive 
-            ? 'bg-slate-900 text-white shadow-slate-300' 
-            : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/80'
+            ? 'bg-[#647251] text-white shadow-md shadow-[#647251]/20' 
+            : 'bg-[#F6F3EB] text-[#4D463C] hover:bg-[#EFECE2] border border-[#E6DEC8]'
         }">
           全部天數
         </button>
@@ -416,13 +753,13 @@
         const isActive = state.currentDayFilter === d;
         const dayTotal = state.expenses.filter(i => i.day === d).reduce((s, i) => s + i.amount, 0);
         tabsHtml += `
-          <button onclick="selectDay(${d})" class="btn-press px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center space-x-1 shadow-sm ${
+          <button onclick="selectDay(${d})" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all flex items-center space-x-2 ${
             isActive 
-              ? 'bg-indigo-600 text-white shadow-indigo-200' 
-              : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200/80'
+              ? 'bg-[#647251] text-white shadow-md shadow-[#647251]/20' 
+              : 'bg-[#F6F3EB] text-[#4D463C] hover:bg-[#EFECE2] border border-[#E6DEC8]'
           }">
             <span>Day ${d}</span>
-            ${dayTotal > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-indigo-800 text-indigo-100' : 'bg-slate-100 text-slate-500'}">${formatShortAmount(dayTotal)}</span>` : ''}
+            ${dayTotal > 0 ? `<span class="text-[13px] px-2 py-0.5 rounded-full ${isActive ? 'bg-[#4E5A3E] text-[#FAF6ED]' : 'bg-[#FFFFFF] text-[#647251] border border-[#E6DEC8]'}">${formatShortAmount(dayTotal)}</span>` : ''}
           </button>
         `;
       }
@@ -591,9 +928,12 @@
 
       if (list.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-10 text-slate-400 bg-white/60 rounded-2xl border border-dashed border-slate-200">
-            <i class="fa-regular fa-clipboard text-2xl mb-2 opacity-50"></i>
-            <p class="text-xs">${state.currentDayFilter === 0 ? '目前尚無支出記錄' : `Day ${state.currentDayFilter} 尚無支出記錄`}，快記上一筆吧！</p>
+          <div class="text-center py-12 px-4 bg-[#FAF6ED] rounded-2xl border-2 border-dashed border-[#D5C7B2]">
+            <div class="w-16 h-16 mx-auto mb-3 clay-icon">
+              <img src="icons/image5.png" alt="尚無支出記錄">
+            </div>
+            <p class="text-[18px] font-bold text-[#4D463C]">${state.currentDayFilter === 0 ? '目前尚無支出記錄' : `Day ${state.currentDayFilter} 尚無支出記錄`}</p>
+            <p class="text-[16px] text-[#6E6559] mt-1">在上方寫下第一筆旅行花費吧！</p>
           </div>
         `;
         return;
@@ -602,30 +942,31 @@
       container.innerHTML = list.map(item => {
         const cat = CATEGORIES[item.category] || CATEGORIES.other;
         return `
-          <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between border border-slate-200/70 shadow-sm">
-            <div class="flex items-center space-x-3 overflow-hidden">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-slate-50 border border-slate-100 flex-shrink-0">
-                ${cat.icon}
+          <div class="bento-cell bg-[#FFFFFF] p-4 flex items-center justify-between gap-3 border border-[#E6DEC8] shadow-sm hover:border-[#D2B79A] transition-colors">
+            <div class="flex items-center space-x-3.5 overflow-hidden">
+              <!-- UI-01 3D 黏土分類圖示 (icons/image7.png ~ image12.png) -->
+              <div class="w-14 h-14 clay-icon flex-shrink-0">
+                <img src="${cat.img}" alt="${cat.name}">
               </div>
               <div class="min-w-0">
-                <div class="flex items-center space-x-1.5">
-                  <span class="text-xs font-bold px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded border border-indigo-100 flex-shrink-0">D${item.day}</span>
-                  <div class="font-bold text-sm font-bold text-slate-800 truncate">${escapeHtml(item.title)}</div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-[13px] font-extrabold px-2 py-0.5 bg-[#EEF2E8] text-[#4F5D3F] rounded-md border border-[#CFD9C2] flex-shrink-0">Day ${item.day}</span>
+                  <div class="font-bold text-[18px] text-[#4D463C] truncate">${escapeHtml(item.title)}</div>
                 </div>
-                <div class="text-xs text-slate-400 flex items-center space-x-1.5 mt-1">
+                <div class="text-[15px] text-[#6E6559] flex items-center space-x-1.5 mt-1 font-medium">
                   <span>${escapeHtml(item.payer)}</span>
                   <span>•</span>
                   <span>${item.date}</span>
                 </div>
               </div>
             </div>
-            <div class="flex items-center space-x-3 flex-shrink-0">
+            <div class="flex items-center space-x-2 flex-shrink-0">
               <div class="text-right">
-                <div class="font-bold text-base font-extrabold text-slate-900">${state.currency} ${item.amount.toLocaleString()}</div>
-                <div class="text-xs text-slate-400 font-medium">${cat.name}</div>
+                <div class="font-extrabold text-[18px] text-[#4D463C]">${state.currency} ${item.amount.toLocaleString()}</div>
+                <div class="text-[14px] text-[#6E6559] font-bold">${cat.name}</div>
               </div>
-              <button onclick="deleteExpense('${item.id}')" class="btn-press text-slate-300 hover:text-rose-500 p-1">
-                <i class="fa-solid fa-xmark text-xs"></i>
+              <button onclick="deleteExpense('${item.id}')" class="btn-press min-w-[44px] min-h-[44px] rounded-xl text-[#8C8274] hover:text-[#B8563E] hover:bg-[#F9EAE4] flex items-center justify-center transition-colors" aria-label="刪除此筆支出">
+                <i class="fa-solid fa-xmark text-base"></i>
               </button>
             </div>
           </div>
@@ -642,8 +983,8 @@
           datasets: [{
             data: [],
             backgroundColor: [],
-            borderWidth: 2,
-            borderColor: '#ffffff'
+            borderWidth: 3,
+            borderColor: '#FFFFFF'
           }]
         },
         options: {
@@ -653,12 +994,14 @@
             legend: {
               position: 'right',
               labels: {
-                boxWidth: 10,
-                font: { size: 10 }
+                boxWidth: 14,
+                padding: 12,
+                color: '#4D463C',
+                font: { size: 14, weight: 'bold' }
               }
             }
           },
-          cutout: '70%'
+          cutout: '66%'
         }
       });
       updateChart();
