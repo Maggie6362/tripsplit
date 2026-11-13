@@ -218,6 +218,31 @@
       padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
 
+    .add-day-button {
+      position: relative;
+      isolation: isolate;
+      width: 44px;
+      height: 44px;
+      border: 1px solid transparent;
+      color: var(--caramel-deep);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .add-day-button::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      z-index: -1;
+      border: 1px solid var(--caramel-base);
+      border-radius: 10px;
+      background: var(--caramel-soft);
+    }
+
+    .add-day-button:hover::before {
+      background: var(--border-hairline);
+    }
+
     .home-travel-banner {
       display: block;
       width: 100%;
@@ -369,7 +394,7 @@
         </div>
 
         <div class="flex items-center space-x-2">
-          <button type="button" onclick="addDay()" aria-label="增加天數" class="btn-press w-11 h-11 rounded-xl bg-[#E5C7B1] hover:bg-[#E9D9CA] text-[#754936] text-[24px] leading-none font-bold border border-[#B88D76] flex items-center justify-center">＋</button>
+          <button type="button" onclick="addDay()" aria-label="增加天數" class="add-day-button btn-press font-bold flex items-center justify-center">＋</button>
           <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press min-h-[44px] px-2 py-2 rounded-xl bg-[#F9EAE4] hover:bg-[#F4DCD3] text-[#913D2D] text-[15px] font-bold border border-[#EBCAC0] hidden">
             刪除本天
           </button>
