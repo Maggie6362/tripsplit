@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="旅帳通">
@@ -12,36 +12,22 @@
   <link rel="apple-touch-icon-precomposed" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icons/image.png">
   <title>TripSplit 旅帳通 - 日系手帳・多日行程分帳</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/utilities.css">
+  <script src="assets/chart.umd.js" defer></script>
   <style>
-    /* ==========================================================================
-       我的 Web App UI 設計師 V1.0 — 複合式設計系統
-       1. 主視覺：UI-03｜日系留白手帳風
-          - 柔白紙感底色 #FAF6ED、草本綠 #A3AE8C (文字強化深草綠 #647251)、暖卡其 #D2B79A、深褐主文字 #4D463C
-          - 輕紙張紋理、大留白、手帳細虛線與紙膠帶標籤點綴
-       2. 輔助版面：UI-02｜Bento 便當格
-          - 14–20px 層次圓角、規整間距 (8/12/16/24px)、手機單欄與雙欄 KPI 混合、桌面漸進擴展
-       3. 圖示系統：UI-01｜3D 黏土療癒風
-          - 20–24px 圓潤霧面黏土容器、45度微俯視暖光雙層立體陰影、保留完整文字標籤不取代文字
-       4. 全域核心規範：
-          - 繁體中文系統字體優先、大字體舒適閱讀 (內文 16–18px、標題 24–30px)
-          - iPhone 單欄優先、所有可點擊元件最小觸控目標 ≥ 44×44px、Safe Area 適配、支援減少動態偏好
-       ========================================================================== */
     :root {
-      --bg-paper: #FAF6ED;       /* UI-03 柔白紙感底色 */
-      --bg-bento-sub: #F6F3EB;   /* UI-02 燕麥淺底 */
-      --card-surface: #FFFFFF;   /* 卡片純白表面 */
-      --herbal-base: #A3AE8C;    /* UI-03 草本綠 */
-      --herbal-deep: #647251;    /* 高對比草本深綠 */
-      --herbal-soft: #EEF2E8;
-      --khaki-base: #D2B79A;     /* UI-03 暖卡其 */
-      --clay-peach: #DDB5A2;     /* UI-01 暖粉橘 */
-      --text-primary: #4D463C;   /* UI-03 主文字深褐 */
-      --text-secondary: #6E6559; /* 次要文字 */
-      --border-hairline: #E6DEC8;
-      --border-dashed: #D5C7B2;
+      --bg-paper: #FAF4EB;
+      --bg-bento-sub: #FAF4EB;
+      --card-surface: #FFFFFF;
+      --caramel-base: #B88D76;
+      --caramel-deep: #754936;
+      --caramel-soft: #E5C7B1;
+      --khaki-base: #B88D76;
+      --clay-peach: #E5C7B1;
+      --text-primary: #4D463C;
+      --text-secondary: #806B5D;
+      --border-hairline: #E9D9CA;
+      --border-dashed: #E9D9CA;
     }
 
     body {
@@ -52,17 +38,18 @@
       line-height: 1.6;
       -webkit-tap-highlight-color: transparent;
       padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
       /* UI-03 極輕手帳方格點陣紙感 */
-      background-image: 
-        radial-gradient(rgba(163, 174, 140, 0.22) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(250, 246, 237, 0.96) 0%, rgba(246, 243, 235, 0.96) 100%);
+      background-image:
+        radial-gradient(rgba(184, 141, 118, 0.22) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(250, 244, 235, 0.96) 0%, rgba(250, 244, 235, 0.96) 100%);
       background-size: 18px 18px, 100% 100%;
     }
 
     /* UI-03 紙感頂部導覽列 */
     .techo-header {
-      background: rgba(250, 246, 237, 0.92);
+      background: rgba(250, 244, 235, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-hairline);
@@ -85,7 +72,7 @@
 
     /* UI-03 手帳紙膠帶標籤 (Washi Tape) */
     .washi-badge {
-      background: linear-gradient(135deg, rgba(210, 183, 154, 0.28) 0%, rgba(163, 174, 140, 0.22) 100%);
+      background: linear-gradient(135deg, rgba(210, 183, 154, 0.28) 0%, rgba(184, 141, 118, 0.22) 100%);
       border-left: 2.5px dashed var(--khaki-base);
       border-right: 2.5px dashed var(--khaki-base);
       color: var(--text-primary);
@@ -144,12 +131,13 @@
       transition: all 0.15s ease;
     }
     .clay-cat-btn.active {
-      background-color: #EEF2E8;
-      border-color: var(--herbal-deep);
-      box-shadow: 0 0 0 2px rgba(100, 114, 81, 0.22), 0 6px 14px rgba(100, 114, 81, 0.12);
+      background-color: #E5C7B1;
+      border-color: var(--caramel-deep);
+      box-shadow: 0 0 0 2px rgba(117, 73, 54, 0.22), 0 6px 14px rgba(117, 73, 54, 0.12);
     }
-    .clay-cat-btn.active .cat-title {
-      color: var(--herbal-deep) !important;
+    .clay-cat-btn.active .cat-title,
+    .clay-cat-btn.active .cat-title + div {
+      color: var(--caramel-deep) !important;
     }
 
     /* UI-01 3D 黏土圓形互動按鈕 (44x44px 觸控熱區) */
@@ -164,7 +152,7 @@
       justify-content: center;
       font-size: 20px;
       font-weight: 800;
-      box-shadow: 
+      box-shadow:
         inset 2px 2px 4px rgba(255, 255, 255, 0.9),
         inset -2px -2px 4px rgba(101, 78, 67, 0.16),
         0 4px 10px rgba(101, 78, 67, 0.12);
@@ -175,12 +163,12 @@
     .clay-action-btn {
       min-height: 50px;
       border-radius: 20px;
-      background: linear-gradient(145deg, #8B9B74 0%, #647251 100%);
+      background: linear-gradient(145deg, #84553F 0%, #754936 100%);
       color: #FFFFFF;
-      box-shadow: 
+      box-shadow:
         inset 2px 2px 4px rgba(255, 255, 255, 0.42),
-        inset -2px -2px 5px rgba(45, 55, 34, 0.28),
-        0 6px 14px rgba(100, 114, 81, 0.28);
+        inset -2px -2px 5px rgba(75, 45, 34, 0.28),
+        0 6px 14px rgba(117, 73, 54, 0.28);
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
@@ -197,8 +185,8 @@
     .techo-field:focus {
       outline: none;
       background-color: #FFFFFF;
-      border-color: var(--herbal-deep);
-      box-shadow: 0 0 0 3px rgba(163, 174, 140, 0.28);
+      border-color: var(--caramel-deep);
+      box-shadow: 0 0 0 3px rgba(184, 141, 118, 0.28);
     }
 
     /* 按壓微互動與無障礙減少動態支援 */
@@ -220,6 +208,107 @@
       }
     }
 
+    [hidden] { display: none !important; }
+
+    :focus-visible { outline: 2px solid var(--caramel-deep); outline-offset: 2px; }
+
+    main {
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+
+    .home-travel-banner {
+      display: block;
+      width: 100%;
+      height: clamp(84px, 16vw, 140px);
+      object-fit: cover;
+      border: 1px solid var(--border-hairline);
+      border-radius: 18px;
+      background: var(--bg-paper);
+    }
+
+    @media (max-height: 700px) {
+      .home-travel-banner { height: 60px; }
+    }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 40;
+      inset: auto 0 0;
+      padding: 5px max(8px, env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      background: var(--card-surface);
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .bottom-nav-items {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      max-width: 36rem;
+      margin: auto;
+    }
+
+    .bottom-nav button {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      min-height: 54px;
+      border-radius: 12px;
+      color: var(--caramel-deep);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .bottom-nav button[aria-current="page"] {
+      background: var(--caramel-soft);
+      box-shadow: inset 0 -3px var(--caramel-deep);
+    }
+
+    .bottom-nav img, .recent-expense img {
+      width: 27px;
+      height: 27px;
+      object-fit: contain;
+    }
+
+    .recent-expense {
+      display: grid;
+      grid-template-columns: 27px minmax(0, 1fr) minmax(0, max-content);
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      border-top: 1px solid var(--border-hairline);
+      font-size: 14px;
+    }
+
+    @media (max-width: 440px) {
+      header h1 { font-size: 17px; }
+    }
+
+    @media (max-height: 700px) {
+      #page-home > section { padding-block: 8px; }
+      #page-home .recent-expense:nth-child(n+2) { display: none; }
+      #page-home .clay-action-btn { min-height: 44px; }
+      #page-home .bento-cell { padding-block: 4px; }
+    }
+
+    @media (max-height: 600px) {
+      #page-home .bento-cell { padding-block: 2px; }
+      #page-home .bento-cell .clay-icon-sm { width: 24px; height: 24px; }
+      #page-home .bento-cell .clay-icon-sm + span { white-space: nowrap; }
+      #page-home > section { padding-block: 4px; }
+      #page-home .recent-expense { padding-block: 1px; }
+    }
+
+    .recent-expense strong { color: var(--caramel-deep); overflow-wrap: anywhere; }
+
+    @media (max-width: 370px) {
+      .recent-expense strong { max-width: 120px; }
+      header .clay-icon { width: 34px; height: 34px; }
+      header button span { white-space: nowrap; }
+      header button { padding-inline: 7px; }
+      header .clay-icon-sm { width: 18px; height: 18px; }
+      header .brand-en { display: none; }
+    }
+
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -232,30 +321,29 @@
 <body class="antialiased min-h-screen flex flex-col justify-between select-none">
 
   <!-- 頂部導覽列 (UI-03 留白手帳感 + UI-01 3D 黏土主角圖示 icons/image.png) -->
-  <header class="sticky top-0 z-40 techo-header px-4 py-3">
+  <header class="techo-header px-4 py-2">
     <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center space-x-3">
         <!-- UI-01 3D 黏土療癒風錢包主角圖示 (icons/image.png) -->
-        <div class="w-14 h-14 clay-icon flex-shrink-0">
+        <div class="w-11 h-11 clay-icon flex-shrink-0">
           <img src="icons/image.png" alt="TripSplit 旅帳通錢包圖示">
         </div>
         <div>
           <!-- 標題 24px 大字體規範 -->
-          <h1 class="text-[24px] font-extrabold text-[#4D463C] leading-tight tracking-tight">TripSplit 旅帳通</h1>
-          <p class="text-[14px] text-[#6E6559] font-medium">日系旅行手帳・多日分帳本</p>
+          <h1 class="text-[20px] font-extrabold text-[#4D463C] leading-tight tracking-tight"><span class="brand-en">TripSplit </span>旅帳通</h1>
         </div>
       </div>
 
       <!-- 頂部操作按鈕組 (皆符合 ≥ 44×44px 觸控標準，且保留完整文字標籤) -->
       <div class="flex items-center space-x-2">
-        <button onclick="openShareModal()" class="btn-press min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#EEF2E8] hover:bg-[#E3EAD9] text-[#4F5D3F] font-bold text-[16px] flex items-center space-x-2 border border-[#CFD9C2] shadow-sm">
+        <button onclick="openShareModal()" class="btn-press min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#E5C7B1] hover:bg-[#E9D9CA] text-[#754936] font-bold text-[16px] flex items-center space-x-2 border border-[#B88D76] shadow-sm">
           <span class="w-7 h-7 clay-icon-sm flex-shrink-0">
             <img src="icons/image6.png" alt="結算分享">
           </span>
-          <span>LINE 分享</span>
+          <span class="whitespace-nowrap">LINE 分享</span>
         </button>
-        <button onclick="clearAllData()" class="btn-press min-w-[44px] min-h-[44px] px-2.5 py-2 rounded-2xl bg-[#F6F3EB] hover:bg-[#F5E6E0] text-[#6E6559] hover:text-[#B8563E] border border-[#E6DEC8] flex items-center space-x-1 text-[14px] font-bold" title="清空全部資料">
-          <i class="fa-regular fa-trash-can text-base"></i>
+        <button onclick="clearAllData()" class="btn-press min-w-[44px] min-h-[44px] px-2.5 py-2 rounded-2xl bg-[#FAF4EB] hover:bg-[#F5E6E0] text-[#806B5D] hover:text-[#913D2D] border border-[#E9D9CA] flex items-center space-x-1 text-[14px] font-bold" title="清空全部資料">
+          <span aria-hidden="true" class="text-base">↺</span>
           <span class="hidden sm:inline">重置</span>
         </button>
       </div>
@@ -263,53 +351,45 @@
   </header>
 
   <!-- 主內容區：iPhone 單欄優先，iPad/桌面漸進擴展為 Bento 雙欄網格 -->
-  <main class="flex-1 max-w-md md:max-w-4xl w-full mx-auto px-4 py-5 space-y-5 pb-28">
+  <main class="flex-1 max-w-xl w-full mx-auto px-3 pt-2 space-y-2">
+
+    <img id="homeTravelBanner" class="home-travel-banner" src="assets/home-travel-banner.jpg" width="1200" height="400" alt="">
 
     <!-- 區塊 1：多日行程手帳索引標籤 (Day Tabs Bento Bar + icons/image2.png) -->
-    <section class="bento-box p-4 space-y-3" aria-label="行程天數切換">
-      <div class="flex items-center justify-between flex-wrap gap-2">
+    <section class="bento-box px-3 py-2" aria-label="行程天數切換">
+      <div class="flex items-center justify-between gap-1">
         <div class="flex items-center space-x-2.5">
           <!-- UI-01 3D 黏土桌曆圖示 (icons/image2.png) -->
-          <span class="w-10 h-10 clay-icon-sm flex-shrink-0">
+          <span class="w-8 h-8 clay-icon-sm flex-shrink-0">
             <img src="icons/image2.png" alt="行程天數桌曆圖示">
           </span>
-          <span class="text-[18px] font-bold text-[#4D463C]">行程天數索引</span>
+          <span class="text-[16px] font-bold text-[#4D463C]">行程天數</span>
         </div>
 
         <div class="flex items-center space-x-2">
-          <button onclick="addDay()" class="btn-press min-h-[44px] px-3.5 py-2 rounded-xl bg-[#EEF2E8] hover:bg-[#E2E9D8] text-[#4F5D3F] text-[15px] font-bold border border-[#CFD9C2] flex items-center space-x-1.5">
-            <i class="fa-solid fa-plus text-xs"></i>
+          <button onclick="addDay()" class="btn-press min-h-[44px] px-2 py-2 rounded-xl bg-[#E5C7B1] hover:bg-[#E9D9CA] text-[#754936] text-[15px] font-bold border border-[#B88D76] flex items-center space-x-1.5">
+            <span aria-hidden="true" class="text-xs">+</span>
             <span>增加天數</span>
           </button>
-          <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press min-h-[44px] px-3.5 py-2 rounded-xl bg-[#F9EAE4] hover:bg-[#F4DCD3] text-[#B5533C] text-[15px] font-bold border border-[#EBCAC0] hidden">
+          <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press min-h-[44px] px-2 py-2 rounded-xl bg-[#F9EAE4] hover:bg-[#F4DCD3] text-[#913D2D] text-[15px] font-bold border border-[#EBCAC0] hidden">
             刪除本天
           </button>
         </div>
       </div>
 
       <!-- 天數滑動列 (手帳書籤感) -->
-      <div id="dayTabsContainer" class="flex space-x-2.5 overflow-x-auto pt-1 pb-1 no-scrollbar">
+      <div id="dayTabsContainer" class="flex gap-2 overflow-x-auto no-scrollbar">
         <!-- 由 JS 動態渲染天數標籤 -->
       </div>
     </section>
 
-    <!-- Bento 主網格：iPhone 單欄垂直流暢閱讀，桌面版左右雙欄便當格 -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
-
-      <!-- 左側／上方欄：Bento KPI 總覽便當大卡 + 新增支出手帳卡 -->
-      <div class="md:col-span-6 space-y-5">
-
-        <!-- 區塊 2：UI-02 Bento KPI 總覽大卡 (融合 UI-03 留白手帳紙感) -->
-        <section class="bento-box p-5 relative overflow-hidden" aria-label="支出分帳總覽">
-          <!-- 頂部視角紙膠帶與幣別切換 -->
-          <div class="flex justify-between items-center gap-2 mb-4">
-            <span id="scopeBadge" class="washi-badge text-[15px] px-3 py-1.5 rounded-lg font-bold">
-              當前視角：全部天數總覽
-            </span>
-
+    <div id="page-home" class="space-y-2">
+        <section class="bento-box p-3" aria-label="支出分帳總覽">
+          <div class="flex justify-between items-center gap-2">
+            <span class="font-bold">總支出</span>
             <div class="relative">
               <label for="currencySelect" class="sr-only">選擇幣別</label>
-              <select id="currencySelect" onchange="changeCurrency(this.value)" class="min-h-[44px] bg-[#F6F3EB] text-[#4D463C] text-[16px] font-bold pl-3.5 pr-8 py-2 rounded-xl outline-none border border-[#D2B79A] focus:border-[#647251] appearance-none cursor-pointer">
+              <select id="currencySelect" onchange="changeCurrency(this.value)" class="min-h-[44px] bg-[#FAF4EB] text-[#4D463C] text-[16px] font-bold pl-3.5 pr-8 py-2 rounded-xl outline-none border border-[#B88D76] focus:border-[#754936] appearance-none cursor-pointer">
                 <option value="NT$">NT$ (TWD)</option>
                 <option value="¥">¥ (JPY)</option>
                 <option value="$">$ (USD)</option>
@@ -318,55 +398,54 @@
                 <option value="HK$">HK$</option>
                 <option value="฿">฿ (THB)</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#6E6559] pointer-events-none"></i>
+              <span aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#806B5D] pointer-events-none">⌄</span>
             </div>
           </div>
 
           <!-- 主 KPI 總額便當格 (搭配 icons/image3.png 3D 黏土口金包與金幣) -->
-          <div class="bento-cell p-4 mb-4 flex items-center justify-between gap-3">
+          <div class="px-1 mb-2 flex items-center justify-between gap-3">
             <div>
-              <div class="text-[16px] text-[#6E6559] font-bold mb-1" id="totalAmountLabel">全行程累計總支出</div>
               <!-- 標題與大金額 (30px+) -->
-              <div class="text-[32px] font-extrabold text-[#4D463C] tracking-tight leading-none flex items-baseline">
-                <span id="currSymbol" class="text-[22px] font-bold text-[#647251] mr-1.5">NT$</span>
+              <div class="text-[32px] font-extrabold text-[#754936] min-w-0 break-all tracking-tight leading-none flex items-baseline">
+                <span id="currSymbol" class="text-[22px] font-bold text-[#754936] mr-1.5">NT$</span>
                 <span id="totalAmount">0</span>
               </div>
             </div>
             <!-- UI-01 3D 黏土口金包金幣圖示 (icons/image3.png) -->
-            <div class="w-16 h-16 clay-icon flex-shrink-0">
+            <div class="w-12 h-12 clay-icon flex-shrink-0">
               <img src="icons/image3.png" alt="總支出金幣包圖示">
             </div>
           </div>
 
           <!-- UI-02 雙欄 Bento 子卡片：分攤人數 & 每人應付 -->
-          <div class="grid grid-cols-2 gap-3 pt-4 techo-divider">
+          <div class="grid grid-cols-2 gap-2">
             <!-- 左格：分攤人數 (搭配 icons/image4.png 雙熊公仔與 44x44px 按鈕) -->
-            <div class="bento-cell p-3.5 flex flex-col justify-between">
-              <div class="flex items-center space-x-2 mb-2">
+            <div class="bento-cell p-2 flex flex-col min-w-0 justify-between">
+              <div class="flex items-center space-x-1 mb-1">
                 <span class="w-8 h-8 clay-icon-sm flex-shrink-0">
                   <img src="icons/image4.png" alt="分攤旅伴小熊圖示">
                 </span>
                 <span class="text-[16px] text-[#4D463C] font-bold">分攤人數</span>
               </div>
-              <div class="flex items-center justify-between pt-1">
-                <button type="button" onclick="updateMembers(-1)" class="btn-press clay-round-btn bg-[#FFFFFF] text-[#4D463C] border border-[#E6DEC8]" aria-label="減少分攤人數">−</button>
+              <div class="flex items-center justify-between">
+                <button type="button" onclick="updateMembers(-1)" class="btn-press clay-round-btn bg-[#FFFFFF] text-[#4D463C] border border-[#E9D9CA]" aria-label="減少分攤人數">−</button>
                 <span id="memberCount" class="text-[24px] font-extrabold text-[#4D463C]">2</span>
-                <button type="button" onclick="updateMembers(1)" class="btn-press clay-round-btn text-white" style="background: linear-gradient(145deg, #98A882 0%, #647251 100%);" aria-label="增加分攤人數">+</button>
+                <button type="button" onclick="updateMembers(1)" class="btn-press clay-round-btn text-white" style="background: linear-gradient(145deg, #84553F 0%, #754936 100%);" aria-label="增加分攤人數">+</button>
               </div>
             </div>
 
             <!-- 右格：每人應付金額與進位方式 -->
-            <div class="bento-cell p-3.5 flex flex-col justify-between">
-              <div class="flex flex-wrap justify-between items-center gap-1 mb-1">
+            <div class="bento-cell p-2 flex flex-col min-w-0 justify-between">
+              <div class="flex flex-col items-start">
                 <span class="text-[16px] text-[#4D463C] font-bold">每人應付</span>
-                <select id="roundMode" onchange="renderDashboard()" class="min-h-[36px] bg-[#FFFFFF] px-2 py-1 rounded-lg border border-[#E6DEC8] text-[14px] text-[#5E6B4B] font-bold outline-none cursor-pointer" aria-label="分帳進位方式">
+                <select id="roundMode" onchange="renderDashboard(); saveState()" class="min-h-[44px] max-w-full bg-[#FFFFFF] px-2 py-1 rounded-lg border border-[#E9D9CA] text-[14px] text-[#754936] font-bold outline-none cursor-pointer" aria-label="分帳進位方式">
                   <option value="round">四捨五入</option>
                   <option value="ceil">無條件進位</option>
                   <option value="floor">無條件捨去</option>
                   <option value="exact">保留小數</option>
                 </select>
               </div>
-              <div class="text-[26px] font-extrabold text-[#B8563E] truncate leading-tight pt-1">
+              <div class="text-[22px] font-extrabold text-[#754936] break-all leading-tight">
                 <span id="currSymbolSub" class="text-[16px] font-bold mr-0.5">NT$</span>
                 <span id="perPersonAmount">0</span>
               </div>
@@ -374,6 +453,19 @@
           </div>
         </section>
 
+      <button type="button" onclick="showPage('entry')" class="clay-action-btn btn-press w-full flex items-center justify-center gap-2 font-bold">
+        <img class="w-8 h-8 object-contain" src="icons/image5.png" alt="">新增記帳
+      </button>
+      <section class="bento-box px-3 py-2" aria-labelledby="recentTitle">
+        <div class="flex items-center justify-between">
+          <h2 id="recentTitle" class="font-bold">最近紀錄</h2>
+          <button type="button" onclick="showPage('details')" class="min-h-[44px] px-2 font-bold text-[#754936]">查看明細</button>
+        </div>
+        <ul id="recentExpenses"></ul>
+      </section>
+    </div>
+
+    <div id="page-entry" hidden>
         <!-- 區塊 3：記帳輸入手帳卡 (UI-03 大留白表單 + icons/image5.png 皮革手帳與鋼筆) -->
         <section class="bento-box p-5" aria-label="新增支出表單">
           <div class="flex justify-between items-center mb-4 pb-3 techo-divider border-t-0 border-b">
@@ -398,7 +490,7 @@
                 <select id="inputDaySelect" class="w-full techo-field px-3.5 font-bold appearance-none cursor-pointer">
                   <!-- 動態生成天數選項 -->
                 </select>
-                <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-[#6E6559] pointer-events-none"></i>
+                <span aria-hidden="true" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-[#806B5D] pointer-events-none">⌄</span>
               </div>
             </div>
 
@@ -407,7 +499,7 @@
               <div class="sm:col-span-3">
                 <label for="inputAmount" class="block text-[16px] text-[#4D463C] font-bold mb-1.5">消費金額</label>
                 <div class="relative">
-                  <span id="formCurrPrefix" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[17px] font-extrabold text-[#647251]">NT$</span>
+                  <span id="formCurrPrefix" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[17px] font-extrabold text-[#754936]">NT$</span>
                   <input type="number" id="inputAmount" step="any" inputmode="decimal" required placeholder="0" class="w-full techo-field pl-14 pr-3.5 font-extrabold text-[20px] text-[#4D463C]">
                 </div>
               </div>
@@ -422,7 +514,7 @@
                     <option value="shopping">購物</option>
                     <option value="other">其他</option>
                   </select>
-                  <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6E6559] pointer-events-none"></i>
+                  <span aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#806B5D] pointer-events-none">⌄</span>
                 </div>
               </div>
             </div>
@@ -435,42 +527,42 @@
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image7.png" alt="餐飲"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">餐飲</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">拉麵・美食咖啡</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">拉麵・美食咖啡</div>
                   </div>
                 </button>
                 <button type="button" onclick="chooseCategory('traffic')" data-cat="traffic" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image8.png" alt="交通"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">交通</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">新幹線・電車乘車</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">新幹線・電車乘車</div>
                   </div>
                 </button>
                 <button type="button" onclick="chooseCategory('hotel')" data-cat="hotel" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image9.png" alt="住宿"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">住宿</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">溫泉飯店・旅宿</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">溫泉飯店・旅宿</div>
                   </div>
                 </button>
                 <button type="button" onclick="chooseCategory('ticket')" data-cat="ticket" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image10.png" alt="門票娛樂"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">門票娛樂</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">景點票券・遊樂體驗</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">景點票券・遊樂體驗</div>
                   </div>
                 </button>
                 <button type="button" onclick="chooseCategory('shopping')" data-cat="shopping" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image11.png" alt="購物"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">購物</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">伴手禮・藥妝百貨</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">伴手禮・藥妝百貨</div>
                   </div>
                 </button>
                 <button type="button" onclick="chooseCategory('other')" data-cat="other" class="btn-press clay-cat-btn p-2.5 flex items-center space-x-3 text-left">
                   <span class="w-14 h-14 clay-icon-sm flex-shrink-0"><img src="icons/image12.png" alt="其他"></span>
                   <div class="min-w-0 flex-1">
                     <div class="text-[16px] font-extrabold text-[#4D463C] cat-title">其他</div>
-                    <div class="text-[12px] text-[#6E6559] font-medium truncate">雜支・行李保險</div>
+                    <div class="text-[12px] text-[#806B5D] font-medium truncate">雜支・行李保險</div>
                   </div>
                 </button>
               </div>
@@ -490,7 +582,7 @@
 
             <!-- UI-01 3D 黏土主按鈕 (≥ 50px 觸控高度) -->
             <button type="submit" class="btn-press w-full clay-action-btn text-[18px] font-extrabold flex items-center justify-center space-x-2">
-              <i class="fa-solid fa-plus text-base"></i>
+              <span aria-hidden="true" class="text-base">+</span>
               <span>寫入旅行手帳</span>
             </button>
           </form>
@@ -498,11 +590,9 @@
 
       </div>
 
-      <!-- 右側／下方欄：分類統計便當卡 + 縱向手帳消費明細列表 -->
-      <div class="md:col-span-6 space-y-5">
-
+    <div id="page-stats" hidden>
         <!-- 區塊 4：分析圖表 Bento 區塊 (搭配 icons/image6.png 3D 黏土圓餅圖圖示) -->
-        <section id="chartSection" class="bento-box p-5 hidden" aria-label="支出比例圖表">
+        <section id="chartSection" class="bento-box p-4" aria-label="支出比例圖表">
           <div class="flex justify-between items-center mb-3">
             <div class="flex items-center space-x-2.5">
               <span class="w-10 h-10 clay-icon-sm flex-shrink-0">
@@ -510,15 +600,18 @@
               </span>
               <h3 class="text-[18px] font-extrabold text-[#4D463C]">支出分佈（<span id="chartDayLabel">全部</span>）</h3>
             </div>
-            <span id="chartTotalBadge" class="text-[14px] bg-[#F6F3EB] px-3 py-1 rounded-full text-[#6E6559] font-bold"></span>
+            <span id="chartTotalBadge" class="text-[14px] bg-[#FAF4EB] px-3 py-1 rounded-full text-[#806B5D] font-bold"></span>
           </div>
-          <div class="h-48 flex items-center justify-center">
+          <p id="chartEmpty" class="py-4">目前尚無支出記錄</p>
+          <div id="chartPlot" class="relative h-48" hidden>
             <canvas id="categoryChart"></canvas>
           </div>
         </section>
 
+    </div>
+    <div id="page-details" hidden>
         <!-- 區塊 5：UI-03 縱向手帳筆記卡明細列表 (搭配 icons/image12.png 3D 黏土旅行箱圖示) -->
-        <section class="bento-box p-5 space-y-4" aria-label="消費明細清單">
+        <section class="bento-box p-3 space-y-3" aria-label="消費明細清單">
           <div class="flex justify-between items-center gap-2 pb-3 techo-divider border-t-0 border-b">
             <div class="flex items-center space-x-2.5">
               <!-- UI-01 3D 黏土旅行箱圖示 (icons/image12.png) -->
@@ -526,14 +619,14 @@
                 <img src="icons/image12.png" alt="手帳明細旅行箱圖示">
               </span>
               <h2 class="text-[24px] font-extrabold text-[#4D463C]">
-                手帳明細 <span class="text-[16px] font-bold text-[#647251] bg-[#EEF2E8] px-2.5 py-0.5 rounded-full ml-1" id="recordCount">0</span>
+                明細 <span class="text-[16px] font-bold text-[#754936] bg-[#E5C7B1] px-2.5 py-0.5 rounded-full ml-1" id="recordCount">0</span>
               </h2>
             </div>
 
             <!-- 分類篩選器 (≥ 44px 觸控高度) -->
             <div class="relative">
               <label for="filterCategory" class="sr-only">篩選分類</label>
-              <select id="filterCategory" onchange="renderExpenses()" class="min-h-[44px] bg-[#F6F3EB] border border-[#E6DEC8] rounded-xl pl-3 pr-8 py-2 text-[16px] text-[#4D463C] font-bold outline-none cursor-pointer appearance-none">
+              <select id="filterCategory" onchange="renderExpenses()" class="min-h-[44px] bg-[#FAF4EB] border border-[#E9D9CA] rounded-xl pl-3 pr-8 py-2 text-[16px] text-[#4D463C] font-bold outline-none cursor-pointer appearance-none">
                 <option value="all">全部分類</option>
                 <option value="food">餐飲</option>
                 <option value="traffic">交通</option>
@@ -542,7 +635,7 @@
                 <option value="shopping">購物</option>
                 <option value="other">其他</option>
               </select>
-              <i class="fa-solid fa-filter absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#647251] pointer-events-none"></i>
+              <span aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#754936] pointer-events-none">⌄</span>
             </div>
           </div>
 
@@ -551,15 +644,21 @@
           </div>
         </section>
 
-      </div>
-
     </div>
-
   </main>
+
+  <nav class="bottom-nav" aria-label="主導覽">
+    <div class="bottom-nav-items">
+      <button type="button" data-page="home" aria-current="page" onclick="showPage('home')"><img src="icons/image.png" alt="">首頁</button>
+      <button type="button" data-page="entry" onclick="showPage('entry')"><img src="icons/image5.png" alt="">記帳</button>
+      <button type="button" data-page="stats" onclick="showPage('stats')"><img src="icons/image6.png" alt="">統計</button>
+      <button type="button" data-page="details" onclick="showPage('details')"><img src="icons/image12.png" alt="">明細</button>
+    </div>
+  </nav>
 
   <!-- LINE 分享報告 Modal (UI-03 日系紙感對話框 + icons/image6.png 3D 黏土結算卷軸圖示) -->
   <div id="shareModal" class="fixed inset-0 z-50 bg-[#4D463C]/55 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
-    <div class="bento-box bg-[#FAF6ED] w-full max-w-md p-6 shadow-2xl flex flex-col max-h-[88vh] border-2 border-[#E6DEC8]">
+    <div class="bento-box bg-[#FAF4EB] w-full max-w-md p-6 shadow-2xl flex flex-col max-h-[88vh] border-2 border-[#E9D9CA]">
       <div class="flex justify-between items-center mb-4 pb-3 techo-divider border-t-0 border-b">
         <div class="flex items-center space-x-3">
           <div class="w-11 h-11 clay-icon-sm flex-shrink-0">
@@ -567,24 +666,24 @@
           </div>
           <h4 id="shareModalTitle" class="font-extrabold text-[#4D463C] text-[22px]">LINE 旅帳結算報告</h4>
         </div>
-        <button onclick="closeShareModal()" class="btn-press min-w-[44px] min-h-[44px] rounded-xl bg-[#F6F3EB] text-[#6E6559] hover:text-[#4D463C] flex items-center justify-center border border-[#E6DEC8]" aria-label="關閉視窗">
-          <i class="fa-solid fa-xmark text-lg"></i>
+        <button onclick="closeShareModal()" class="btn-press min-w-[44px] min-h-[44px] rounded-xl bg-[#FAF4EB] text-[#806B5D] hover:text-[#4D463C] flex items-center justify-center border border-[#E9D9CA]" aria-label="關閉視窗">
+          <span aria-hidden="true" class="text-lg">×</span>
         </button>
       </div>
 
       <div class="flex items-center justify-between gap-2 mb-3">
         <label for="shareScopeSelect" class="text-[16px] text-[#4D463C] font-bold">結算範圍：</label>
-        <select id="shareScopeSelect" onchange="generateShareText()" class="flex-1 min-h-[44px] text-[16px] bg-[#FFFFFF] border border-[#D2B79A] rounded-xl px-3 py-2 outline-none text-[#4D463C] font-bold">
+        <select id="shareScopeSelect" onchange="generateShareText()" class="flex-1 min-h-[44px] text-[16px] bg-[#FFFFFF] border border-[#B88D76] rounded-xl px-3 py-2 outline-none text-[#4D463C] font-bold">
           <option value="all">全部行程總結算</option>
           <!-- 動態注入各日選項 -->
         </select>
       </div>
 
-      <textarea id="shareTextPreview" readonly class="w-full flex-1 min-h-[220px] p-4 bg-[#FFFFFF] border border-[#E6DEC8] rounded-2xl text-[16px] text-[#4D463C] leading-relaxed outline-none resize-none mb-4 shadow-inner"></textarea>
+      <textarea id="shareTextPreview" readonly class="w-full flex-1 min-h-[220px] p-4 bg-[#FFFFFF] border border-[#E9D9CA] rounded-2xl text-[16px] text-[#4D463C] leading-relaxed outline-none resize-none mb-4 shadow-inner"></textarea>
 
       <div class="flex space-x-3">
         <button onclick="copyShareText()" class="btn-press flex-1 clay-action-btn text-[18px] font-extrabold flex items-center justify-center space-x-2">
-          <i class="fa-regular fa-copy text-lg"></i>
+          <span aria-hidden="true" class="text-lg">▣</span>
           <span id="copyBtnText">一鍵複製報告</span>
         </button>
       </div>
@@ -594,44 +693,44 @@
   <script>
     // UI-01 3D 黏土療癒色票、icons/ 圖檔路徑與 UI-03 日系草本手帳分類設定
     const CATEGORIES = {
-      food: { 
-        name: '餐飲', 
-        icon: '🍜', 
+      food: {
+        name: '餐飲',
+        icon: '🍜',
         img: 'icons/image7.png',
         color: '#D89B84',
         clayBg: 'linear-gradient(145deg, #F9E5DC 0%, #E6BFA9 100%)'
       },
-      traffic: { 
-        name: '交通', 
-        icon: '🚅', 
+      traffic: {
+        name: '交通',
+        icon: '🚅',
         img: 'icons/image8.png',
-        color: '#8FA89B',
-        clayBg: 'linear-gradient(145deg, #E4EFEA 0%, #B8CFC3 100%)'
+        color: '#91634F',
+        clayBg: 'linear-gradient(145deg, #F5E8DC 0%, #CDA58E 100%)'
       },
-      hotel: { 
-        name: '住宿', 
-        icon: '🏨', 
+      hotel: {
+        name: '住宿',
+        icon: '🏨',
         img: 'icons/image9.png',
         color: '#C7A98C',
         clayBg: 'linear-gradient(145deg, #F5ECE2 0%, #DEC6AE 100%)'
       },
-      ticket: { 
-        name: '門票娛樂', 
-        icon: '🎟️', 
+      ticket: {
+        name: '門票娛樂',
+        icon: '🎟️',
         img: 'icons/image10.png',
         color: '#D49BA7',
         clayBg: 'linear-gradient(145deg, #F9E6EA 0%, #E5BDC6 100%)'
       },
-      shopping: { 
-        name: '購物', 
-        icon: '🛍️', 
+      shopping: {
+        name: '購物',
+        icon: '🛍️',
         img: 'icons/image11.png',
-        color: '#A3AE8C',
-        clayBg: 'linear-gradient(145deg, #ECF1E4 0%, #C6D1B3 100%)'
+        color: '#B88D76',
+        clayBg: 'linear-gradient(145deg, #F1E4D9 0%, #D6B49F 100%)'
       },
-      other: { 
-        name: '其他', 
-        icon: '💡', 
+      other: {
+        name: '其他',
+        icon: '💡',
         img: 'icons/image12.png',
         color: '#B5A899',
         clayBg: 'linear-gradient(145deg, #F0ECE6 0%, #D5CBBF 100%)'
@@ -678,8 +777,20 @@
       renderDaySelectOptions();
       renderDashboard();
       renderExpenses();
-      initChart();
     });
+
+    function showPage(page) {
+      const changed = document.getElementById(`page-${page}`).hidden;
+      document.querySelectorAll('.bottom-nav [data-page]').forEach(button => {
+        const active = button.dataset.page === page;
+        document.getElementById(`page-${button.dataset.page}`).hidden = !active;
+        if (active) button.setAttribute('aria-current', 'page');
+        else button.removeAttribute('aria-current');
+      });
+      document.getElementById('homeTravelBanner').hidden = page !== 'home';
+      if (page === 'stats') updateChart();
+      if (changed) window.scrollTo(0, 0);
+    }
 
     function saveState() {
       localStorage.setItem('tripsplit_multi_data', JSON.stringify(state));
@@ -716,8 +827,8 @@
       if (state.currentDayFilter === 0) return;
       const targetDay = state.currentDayFilter;
       const count = state.expenses.filter(i => i.day === targetDay).length;
-      
-      const confirmMsg = count > 0 
+
+      const confirmMsg = count > 0
         ? `確定要刪除 Day ${targetDay} 嗎？該天的 ${count} 筆記帳將一併刪除！`
         : `確定要刪除 Day ${targetDay} 嗎？`;
 
@@ -739,11 +850,12 @@
 
     function selectDay(dayNumber) {
       state.currentDayFilter = dayNumber;
+      saveState();
       renderDayTabs();
       renderDashboard();
       renderExpenses();
       updateChart();
-      
+
       const inputDaySelect = document.getElementById('inputDaySelect');
       if (dayNumber > 0 && inputDaySelect) {
         inputDaySelect.value = dayNumber;
@@ -754,10 +866,9 @@
     function renderDayTabs() {
       const container = document.getElementById('dayTabsContainer');
       const delBtn = document.getElementById('btnDeleteDay');
-      
+
       if (state.currentDayFilter > 0 && state.totalDays > 1) {
         delBtn.classList.remove('hidden');
-        delBtn.textContent = `刪除 Day ${state.currentDayFilter}`;
       } else {
         delBtn.classList.add('hidden');
       }
@@ -765,10 +876,10 @@
       let tabsHtml = '';
       const isAllActive = state.currentDayFilter === 0;
       tabsHtml += `
-        <button onclick="selectDay(0)" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all ${
-          isAllActive 
-            ? 'bg-[#647251] text-white shadow-md shadow-[#647251]/20' 
-            : 'bg-[#F6F3EB] text-[#4D463C] hover:bg-[#EFECE2] border border-[#E6DEC8]'
+        <button onclick="selectDay(0)" aria-pressed="${isAllActive}" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all ${
+          isAllActive
+            ? 'bg-[#754936] text-white shadow-md shadow-[#754936]/20'
+            : 'bg-[#FAF4EB] text-[#4D463C] hover:bg-[#E9D9CA] border border-[#E9D9CA]'
         }">
           全部天數
         </button>
@@ -778,18 +889,28 @@
         const isActive = state.currentDayFilter === d;
         const dayTotal = state.expenses.filter(i => i.day === d).reduce((s, i) => s + i.amount, 0);
         tabsHtml += `
-          <button onclick="selectDay(${d})" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all flex items-center space-x-2 ${
-            isActive 
-              ? 'bg-[#647251] text-white shadow-md shadow-[#647251]/20' 
-              : 'bg-[#F6F3EB] text-[#4D463C] hover:bg-[#EFECE2] border border-[#E6DEC8]'
+          <button onclick="selectDay(${d})" aria-pressed="${isActive}" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all flex items-center space-x-2 ${
+            isActive
+              ? 'bg-[#754936] text-white shadow-md shadow-[#754936]/20'
+              : 'bg-[#FAF4EB] text-[#4D463C] hover:bg-[#E9D9CA] border border-[#E9D9CA]'
           }">
-            <span>Day ${d}</span>
-            ${dayTotal > 0 ? `<span class="text-[13px] px-2 py-0.5 rounded-full ${isActive ? 'bg-[#4E5A3E] text-[#FAF6ED]' : 'bg-[#FFFFFF] text-[#647251] border border-[#E6DEC8]'}">${formatShortAmount(dayTotal)}</span>` : ''}
+            <span>第 ${d} 天</span>
+            ${dayTotal > 0 ? `<span class="text-[13px] px-2 py-0.5 rounded-full ${isActive ? 'bg-[#623A2B] text-[#FAF4EB]' : 'bg-[#FFFFFF] text-[#754936] border border-[#E9D9CA]'}">${formatShortAmount(dayTotal)}</span>` : ''}
           </button>
         `;
       }
 
+      const scrollLeft = container.scrollLeft;
       container.innerHTML = tabsHtml;
+      container.scrollLeft = scrollLeft;
+      const selected = container.querySelector('[aria-pressed="true"]');
+      const bounds = container.getBoundingClientRect();
+      const selectedBounds = selected?.getBoundingClientRect();
+      if (selectedBounds && selectedBounds.right > bounds.right) {
+        container.scrollLeft += selectedBounds.right - bounds.right;
+      } else if (selectedBounds && selectedBounds.left < bounds.left) {
+        container.scrollLeft -= bounds.left - selectedBounds.left;
+      }
     }
 
     function formatShortAmount(num) {
@@ -915,15 +1036,15 @@
       const total = activeList.reduce((sum, item) => sum + item.amount, 0);
       document.getElementById('totalAmount').textContent = total.toLocaleString('zh-TW');
 
-      const scopeBadge = document.getElementById('scopeBadge');
-      const totalAmountLabel = document.getElementById('totalAmountLabel');
-      if (state.currentDayFilter === 0) {
-        scopeBadge.textContent = '當前視角：全部天數總覽';
-        totalAmountLabel.textContent = '全行程累計總支出';
-      } else {
-        scopeBadge.textContent = `當前視角：第 ${state.currentDayFilter} 天 (Day ${state.currentDayFilter})`;
-        totalAmountLabel.textContent = `Day ${state.currentDayFilter} 當日總支出`;
-      }
+      const recentExpenses = document.getElementById('recentExpenses');
+      recentExpenses.innerHTML = activeList.slice(0, 2).map(item => {
+        const category = CATEGORIES[item.category] || CATEGORIES.other;
+        return `<li class="recent-expense">
+          <img src="${category.img}" alt="${category.name}">
+          <span class="truncate">${escapeHtml(item.title)}</span>
+          <strong>${escapeHtml(state.currency)} ${item.amount.toLocaleString('zh-TW')}</strong>
+        </li>`;
+      }).join('') || '<li class="pb-2 text-sm">目前尚無支出記錄</li>';
 
       let perPerson = total / (state.members || 1);
       let displayPerPerson = 0;
@@ -953,12 +1074,12 @@
 
       if (list.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-12 px-4 bg-[#FAF6ED] rounded-2xl border-2 border-dashed border-[#D5C7B2]">
+          <div class="text-center py-12 px-4 bg-[#FAF4EB] rounded-2xl border-2 border-dashed border-[#E9D9CA]">
             <div class="w-16 h-16 mx-auto mb-3 clay-icon">
               <img src="icons/image5.png" alt="尚無支出記錄">
             </div>
             <p class="text-[18px] font-bold text-[#4D463C]">${state.currentDayFilter === 0 ? '目前尚無支出記錄' : `Day ${state.currentDayFilter} 尚無支出記錄`}</p>
-            <p class="text-[16px] text-[#6E6559] mt-1">在上方寫下第一筆旅行花費吧！</p>
+            <p class="text-[16px] text-[#806B5D] mt-1">可在「記帳」新增旅行花費。</p>
           </div>
         `;
         return;
@@ -967,18 +1088,18 @@
       container.innerHTML = list.map(item => {
         const cat = CATEGORIES[item.category] || CATEGORIES.other;
         return `
-          <div class="bento-cell bg-[#FFFFFF] p-4 flex items-center justify-between gap-3 border border-[#E6DEC8] shadow-sm hover:border-[#D2B79A] transition-colors">
-            <div class="flex items-center space-x-3.5 overflow-hidden">
+          <div class="bento-cell bg-[#FFFFFF] p-2 flex items-center justify-between gap-2 border border-[#E9D9CA] shadow-sm hover:border-[#B88D76] transition-colors">
+            <div class="flex items-center gap-2 min-w-0">
               <!-- UI-01 3D 黏土分類圖示 (icons/image7.png ~ image12.png) -->
-              <div class="w-14 h-14 clay-icon flex-shrink-0">
+              <div class="w-9 h-9 clay-icon flex-shrink-0">
                 <img src="${cat.img}" alt="${cat.name}">
               </div>
               <div class="min-w-0">
-                <div class="flex items-center space-x-2">
-                  <span class="text-[13px] font-extrabold px-2 py-0.5 bg-[#EEF2E8] text-[#4F5D3F] rounded-md border border-[#CFD9C2] flex-shrink-0">Day ${item.day}</span>
-                  <div class="font-bold text-[18px] text-[#4D463C] truncate">${escapeHtml(item.title)}</div>
+                <div class="flex flex-wrap items-center gap-1">
+                  <span class="text-[13px] font-extrabold px-2 py-0.5 bg-[#E5C7B1] text-[#754936] rounded-md border border-[#B88D76] flex-shrink-0">Day ${item.day}</span>
+                  <div class="font-bold text-[16px] text-[#4D463C] break-all">${escapeHtml(item.title)}</div>
                 </div>
-                <div class="text-[15px] text-[#6E6559] flex items-center space-x-1.5 mt-1 font-medium">
+                <div class="text-sm text-[#806B5D] flex flex-wrap items-center gap-1 mt-1 font-medium">
                   <span>${escapeHtml(item.payer)}</span>
                   <span>•</span>
                   <span>${item.date}</span>
@@ -987,11 +1108,11 @@
             </div>
             <div class="flex items-center space-x-2 flex-shrink-0">
               <div class="text-right">
-                <div class="font-extrabold text-[18px] text-[#4D463C]">${state.currency} ${item.amount.toLocaleString()}</div>
-                <div class="text-[14px] text-[#6E6559] font-bold">${cat.name}</div>
+                <div class="font-extrabold text-[16px] text-[#754936]">${state.currency} ${item.amount.toLocaleString()}</div>
+                <div class="text-[14px] text-[#806B5D] font-bold">${cat.name}</div>
               </div>
-              <button onclick="deleteExpense('${item.id}')" class="btn-press min-w-[44px] min-h-[44px] rounded-xl text-[#8C8274] hover:text-[#B8563E] hover:bg-[#F9EAE4] flex items-center justify-center transition-colors" aria-label="刪除此筆支出">
-                <i class="fa-solid fa-xmark text-base"></i>
+              <button onclick="deleteExpense('${item.id}')" class="btn-press min-w-[44px] min-h-[44px] rounded-xl text-[#8C8274] hover:text-[#913D2D] hover:bg-[#F9EAE4] flex items-center justify-center transition-colors" aria-label="刪除此筆支出">
+                <span aria-hidden="true" class="text-base">×</span>
               </button>
             </div>
           </div>
@@ -1029,21 +1150,24 @@
           cutout: '66%'
         }
       });
-      updateChart();
     }
 
     function updateChart() {
-      const section = document.getElementById('chartSection');
+      if (document.getElementById('page-stats').hidden) return;
       const activeList = getCurrentExpenses();
-
-      if (activeList.length === 0) {
-        section.classList.add('hidden');
-        return;
-      }
-      section.classList.remove('hidden');
-
-      const chartDayLabel = document.getElementById('chartDayLabel');
-      chartDayLabel.textContent = state.currentDayFilter === 0 ? '全部天數' : `Day ${state.currentDayFilter}`;
+      const hasExpenses = activeList.length > 0;
+      const canDraw = hasExpenses && typeof Chart !== 'undefined';
+      const chartMessage = document.getElementById('chartEmpty');
+      chartMessage.hidden = canDraw;
+      chartMessage.textContent = hasExpenses ? '圖表載入失敗' : '目前尚無支出記錄';
+      document.getElementById('chartPlot').hidden = !canDraw;
+      document.getElementById('chartDayLabel').textContent =
+        state.currentDayFilter === 0 ? '全部天數' : `第 ${state.currentDayFilter} 天`;
+      const total = activeList.reduce((sum, item) => sum + item.amount, 0);
+      document.getElementById('chartTotalBadge').textContent =
+        hasExpenses ? `${state.currency} ${total.toLocaleString('zh-TW')}` : '';
+      if (!canDraw) return;
+      if (!chartInstance) initChart();
 
       const sums = {};
       activeList.forEach(i => {
@@ -1069,6 +1193,7 @@
     }
 
     function openShareModal() {
+      document.getElementById('copyBtnText').textContent = '一鍵複製報告';
       const select = document.getElementById('shareScopeSelect');
       let options = `<option value="all">全部行程總結算 (Day 1 ~ Day ${state.totalDays})</option>`;
       for (let d = 1; d <= state.totalDays; d++) {
@@ -1143,18 +1268,24 @@
       document.getElementById('shareModal').classList.remove('flex');
     }
 
-    function copyShareText() {
+    async function copyShareText() {
       const textarea = document.getElementById('shareTextPreview');
       textarea.select();
       textarea.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(textarea.value).then(() => {
-        const btnText = document.getElementById('copyBtnText');
-        btnText.textContent = '已成功複製！';
-        setTimeout(() => {
-          btnText.textContent = '一鍵複製報告';
-          closeShareModal();
-        }, 1200);
-      });
+      const btnText = document.getElementById('copyBtnText');
+      try {
+        await navigator.clipboard.writeText(textarea.value);
+      } catch {
+        textarea.focus();
+        textarea.select();
+        btnText.textContent = '請手動複製已選取文字';
+        return;
+      }
+      btnText.textContent = '已成功複製！';
+      setTimeout(() => {
+        btnText.textContent = '一鍵複製報告';
+        closeShareModal();
+      }, 1200);
     }
 
     function escapeHtml(str) {
