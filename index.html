@@ -639,6 +639,10 @@
             </div>
           </div>
 
+          <button type="button" onclick="exportTripJson()" class="min-h-[44px] w-full rounded-xl border border-[#B88D76] bg-[#E5C7B1] px-3 font-bold text-[#754936]">
+            匯出全部天數 JSON
+          </button>
+
           <div id="expenseList" class="space-y-3">
             <!-- 動態渲染手帳明細卡片 -->
           </div>
@@ -790,6 +794,28 @@
       document.getElementById('homeTravelBanner').hidden = page !== 'home';
       if (page === 'stats') updateChart();
       if (changed) window.scrollTo(0, 0);
+    }
+
+    function exportTripJson() {
+      const { currency, members, roundMode, totalDays, expenses } = state;
+      const exportedAt = new Date().toISOString();
+      const payload = {
+        format: 'tripsplit-export',
+        schemaVersion: 1,
+        exportedAt,
+        trips: [{ currency, members, roundMode, totalDays, expenses }]
+      };
+      const file = new Blob([JSON.stringify(payload, null, 2)], {
+        type: 'application/json;charset=utf-8'
+      });
+      const url = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `tripsplit-${exportedAt.slice(0, 19).replace(/:/g, '-')}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
     function saveState() {
