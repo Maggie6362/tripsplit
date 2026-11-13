@@ -21,6 +21,8 @@
       --card-surface: #FFFFFF;
       --caramel-base: #B88D76;
       --caramel-deep: #754936;
+      --caramel-button: #93654F;
+      --caramel-button-gradient: linear-gradient(145deg, #9B6C54, #895C46);
       --caramel-soft: #E5C7B1;
       --khaki-base: #B88D76;
       --clay-peach: #E5C7B1;
@@ -163,7 +165,7 @@
     .clay-action-btn {
       min-height: 50px;
       border-radius: 20px;
-      background: linear-gradient(145deg, #84553F 0%, #754936 100%);
+      background: var(--caramel-button-gradient);
       color: #FFFFFF;
       box-shadow:
         inset 2px 2px 4px rgba(255, 255, 255, 0.42),
@@ -260,7 +262,7 @@
 
     .bottom-nav button[aria-current="page"] {
       background: var(--caramel-soft);
-      box-shadow: inset 0 -3px var(--caramel-deep);
+      box-shadow: inset 0 -3px var(--caramel-button);
     }
 
     .bottom-nav img, .recent-expense img {
@@ -367,10 +369,7 @@
         </div>
 
         <div class="flex items-center space-x-2">
-          <button onclick="addDay()" class="btn-press min-h-[44px] px-2 py-2 rounded-xl bg-[#E5C7B1] hover:bg-[#E9D9CA] text-[#754936] text-[15px] font-bold border border-[#B88D76] flex items-center space-x-1.5">
-            <span aria-hidden="true" class="text-xs">+</span>
-            <span>增加天數</span>
-          </button>
+          <button type="button" onclick="addDay()" aria-label="增加天數" class="btn-press w-11 h-11 rounded-xl bg-[#E5C7B1] hover:bg-[#E9D9CA] text-[#754936] text-[24px] leading-none font-bold border border-[#B88D76] flex items-center justify-center">＋</button>
           <button onclick="deleteCurrentDay()" id="btnDeleteDay" class="btn-press min-h-[44px] px-2 py-2 rounded-xl bg-[#F9EAE4] hover:bg-[#F4DCD3] text-[#913D2D] text-[15px] font-bold border border-[#EBCAC0] hidden">
             刪除本天
           </button>
@@ -430,7 +429,7 @@
               <div class="flex items-center justify-between">
                 <button type="button" onclick="updateMembers(-1)" class="btn-press clay-round-btn bg-[#FFFFFF] text-[#4D463C] border border-[#E9D9CA]" aria-label="減少分攤人數">−</button>
                 <span id="memberCount" class="text-[24px] font-extrabold text-[#4D463C]">2</span>
-                <button type="button" onclick="updateMembers(1)" class="btn-press clay-round-btn text-white" style="background: linear-gradient(145deg, #84553F 0%, #754936 100%);" aria-label="增加分攤人數">+</button>
+                <button type="button" onclick="updateMembers(1)" class="btn-press clay-round-btn text-white" style="background: var(--caramel-button-gradient);" aria-label="增加分攤人數">+</button>
               </div>
             </div>
 
@@ -904,7 +903,7 @@
       tabsHtml += `
         <button onclick="selectDay(0)" aria-pressed="${isAllActive}" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all ${
           isAllActive
-            ? 'bg-[#754936] text-white shadow-md shadow-[#754936]/20'
+            ? 'bg-[var(--caramel-button)] text-white shadow-md shadow-[#93654F]/20'
             : 'bg-[#FAF4EB] text-[#4D463C] hover:bg-[#E9D9CA] border border-[#E9D9CA]'
         }">
           全部天數
@@ -917,7 +916,7 @@
         tabsHtml += `
           <button onclick="selectDay(${d})" aria-pressed="${isActive}" class="btn-press min-h-[44px] px-4 py-2 rounded-2xl text-[16px] font-bold whitespace-nowrap transition-all flex items-center space-x-2 ${
             isActive
-              ? 'bg-[#754936] text-white shadow-md shadow-[#754936]/20'
+              ? 'bg-[var(--caramel-button)] text-white shadow-md shadow-[#93654F]/20'
               : 'bg-[#FAF4EB] text-[#4D463C] hover:bg-[#E9D9CA] border border-[#E9D9CA]'
           }">
             <span>第 ${d} 天</span>
